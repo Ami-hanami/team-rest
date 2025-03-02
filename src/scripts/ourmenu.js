@@ -5,91 +5,9 @@ createHeader();
 
 import "../style/ourmenu.css";
 
-// // header
-
-// import "../style/index.css";
-
-// const header = document.createElement('header');
-
-// const ul = document.createElement('ul');
-// ul.classList.add('nav-list');
-
-// const li1 = document.createElement('li');
-// const li2 = document.createElement('li');
-// const li3 = document.createElement('li');
-
-// const linkWelcome = document.createElement('a');
-// linkWelcome.classList.add('list-item');
-// linkWelcome.textContent = 'Welcome';
-// linkWelcome.setAttribute('href', '../index.html');
-
-// const linkMenu = document.createElement('a');
-// linkMenu.classList.add('list-item');
-// linkMenu.textContent = 'Our Menu';
-// linkMenu.setAttribute('href', '../ourmenu.html');
-
-// const linkContact = document.createElement('a');
-// linkContact.classList.add('list-item');
-// linkContact.textContent = 'Contact';
-// linkContact.setAttribute('href', '../contact.html');
-
-// import logoSrc from '../icons/logo.png';
-// const logo = document.createElement('img');
-// logo.classList.add('logo');
-// logo.setAttribute('alt', 'logo-icon');
-// logo.setAttribute('src', logoSrc);
-
-// const serviceCont = document.createElement('div');
-// serviceCont.classList.add('service-container');
-
-// import cartIcon from '../icons/shopping-cart.svg';
-// const cart = document.createElement('img');
-// cart.classList.add('cart');
-// cart.setAttribute('alt', 'basket');
-// cart.setAttribute('src', cartIcon);
-
-// import searchIcon from '../icons/Search-icon.svg';
-// const search = document.createElement('img');
-// search.classList.add('search');
-// search.setAttribute('alt', 'magnifying glass');
-// search.setAttribute('src', searchIcon);
-
-// const memberBtn = document.createElement('button');
-// memberBtn.classList.add('member-btn');
-// memberBtn.textContent = 'Become a Member';
-
-// document.body.appendChild(header);
-
-// header.appendChild(ul);
-// header.appendChild(logo);
-// header.appendChild(serviceCont);
-
-// ul.appendChild(li1);
-// li1.appendChild(linkWelcome);
-
-// ul.appendChild(li2);
-// li2.appendChild(linkMenu);
-
-// ul.appendChild(li3);
-// li3.appendChild(linkContact);
-
-// serviceCont.appendChild(cart);
-// serviceCont.appendChild(search);
-// serviceCont.appendChild(memberBtn);
-
-// const burgermenu = document.createElement ('button');
-// burgermenu.classList.add('burgermenu');
-// burgermenu.innerHTML = '&#9776;'
-
-// header.appendChild(burgermenu);
-
-// burgermenu.addEventListener('click', () => {
-//     ul.classList.toggle('active');
-// });
-
-// menu
 
 const myMenu = [];
+const myOrder = [];
 
 const mainMenu = document.createElement('main');
 mainMenu.classList.add('main-ourmenu');
@@ -124,6 +42,7 @@ myMenu.forEach((item, index) => {
     const itemImg = document.createElement('img');
     itemImg.classList.add('menu-image');
     itemImg.setAttribute('src', importImg(index + 1));
+    itemImg.setAttribute('height', '200px');
 
     const itemName = document.createElement('p');
     itemName.classList.add('menu-name');
@@ -140,12 +59,53 @@ myMenu.forEach((item, index) => {
     itemPrice.classList.add('menu-price');
     itemPrice.textContent = item.price;
 
+    const itemAmountContainer = document.createElement('div');
+    itemAmountContainer.classList.add('price-block__amount-container');
+
+    const itemAmount = document.createElement('input');
+    itemAmount.classList.add('price-block__amount');
+    itemAmount.setAttribute('type', 'number');
+    itemAmount.setAttribute('value', '0');
+    itemAmount.setAttribute('onkeydown', 'return false');
+
+    const itemAmountDecrease = document.createElement('button');
+    itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
+    itemAmountDecrease.textContent = '-';
+    itemAmountDecrease.addEventListener('click', () => {
+        if (itemAmount.value > 0) {
+            itemAmount.value--;
+        }
+    });
+
+    const itemAmountIncrease = document.createElement('button');
+    itemAmountIncrease.classList.add('price-block__amount-btn-increase');
+    itemAmountIncrease.textContent = '+';
+    itemAmountIncrease.addEventListener('click', () => {
+        itemAmount.value++;
+    });
+
+    itemAmountContainer.appendChild(itemAmountDecrease);
+    itemAmountContainer.appendChild(itemAmount);
+    itemAmountContainer.appendChild(itemAmountIncrease);
+
+    const itemBasketBtn = document.createElement('button');
+    itemBasketBtn.classList.add('basket-btn');
+
+    itemBasketBtn.addEventListener('click', () => {
+        const itemAmountValue = itemAmount.value;
+        if (itemAmountValue > 0) {
+            addBasketItem(item.name, itemAmountValue, item.price);
+        }
+    });
+
     const itemBasket = document.createElement('img');
     itemBasket.classList.add('basket-icon');
     itemBasket.setAttribute('src', require('../icons/basket-btn.svg'));
+    itemBasketBtn.appendChild(itemBasket);
 
     itemPriceBlock.appendChild(itemPrice);
-    itemPriceBlock.appendChild(itemBasket);
+    itemPriceBlock.appendChild(itemAmountContainer);
+    itemPriceBlock.appendChild(itemBasketBtn);
 
     menuItem.appendChild(itemImg);
     menuItem.appendChild(itemName);
@@ -162,3 +122,40 @@ function importImg(itemPosition) {
 mainMenu.appendChild(h2Menu);
 mainMenu.appendChild(menuContainer);
 document.body.appendChild(mainMenu);
+
+function addBasketItem(name, value, price) {
+    const orderItem = document.createElement('div');
+    orderItem.classList.add('order-item');
+
+    const orderItemBlock = document.createElement('div');
+    orderItemBlock.classList.add('order-item__block');
+
+    const orderItemName = document.createElement('p');
+    orderItemName.classList.add('order-item__name');
+    orderItemName.textContent = name;
+
+    const orderItemPrice = document.createElement('p');
+    orderItemPrice.classList.add('order-item__price');
+    orderItemPrice.textContent = price;
+
+    orderItemBlock.appendChild(orderItemName);
+    orderItemBlock.appendChild(orderItemPrice);
+
+    const orderItemAmount = document.createElement('p');
+    orderItemAmount.classList.add('oder-item__amount');
+    orderItemAmount.textContent = value;
+    
+    const orderItemRemove = document.createElement('button');
+    orderItemRemove.classList.add('order-item__remove');
+    orderItemRemove.textContent = 'Remove';
+    orderItemRemove.addEventListener('click', () => {
+        orderItem.remove();
+    });
+
+    orderItem.appendChild(orderItemBlock);
+    orderItem.appendChild(orderItemAmount);
+    orderItem.appendChild(orderItemRemove);
+
+    // myOrder.push(orderItem);
+    // console.log(myOrder);
+}
