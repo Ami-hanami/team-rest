@@ -120,11 +120,10 @@ a {
     border: none;
     color: #fff;
     cursor: pointer;
-    /* position: absolute; */
-    top: 20px;
+    position: absolute;
     right: 20px;
     z-index: 1000;
-    display: none; /* Скрыто по умолчанию */
+    display: none;
 }
 
 @media (max-width: 1120px) {
