@@ -7,8 +7,8 @@
 body, html {
     font-family: Inter;
     font-size: 1rem;
-    background: linear-gradient(180deg, #0D0D0D 0%, #333333 100%);
-    /* background-image: url(/src/icons/backburger.png); */
+    /* background: linear-gradient(180deg, #0D0D0D 0%, #333333 100%); */
+    background-image: url(/src/icons/backburger.png);
     background-size: cover;
     height: 100vh;
 }

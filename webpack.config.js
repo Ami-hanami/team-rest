@@ -1,58 +1,54 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './src/main.js',  // Точка входа для Webpack
-  output: {
-    filename: 'bundle.js',  // Имя скомпилированного файла
-    path: path.resolve(__dirname, 'dist'),  // Папка для сборки
+  entry: {
+    index: './src/main.js',  // Путь к main.js в папке src
+    contact: './src/scripts/contact.js',  // Путь к contact.js
+    ourmenu: './src/scripts/ourmenu.js',  // Путь к ourmenu.js
   },
-  mode: 'development',  // Режим разработки
-  devServer: {
-    historyApiFallback: true,
-    static: './dist',  // Папка с файлы для сервера
-    port: 8080,  // Порт для локального сервера
-    open: true,  // Открытие браузера автоматически
+  output: {
+    filename: 'scripts/[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
   },
   module: {
     rules: [
       {
-        test: /\.css$/,  // Правило для обработки CSS
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.js$/,  // Правило для обработки JS
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],  // Преобразование ES6+
-          },
-        },
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg)$/i,  // Обработка изображений
-        type: 'asset/resource',  // Обработка файлов как ресурсы
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
+        type: 'asset/resource',
         generator: {
-          filename: 'icons/[name][ext]',  // Путь к изображению в папке dist
+          filename: 'assets/images/[name][ext]',
         },
       },
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),  // Очистка папки dist
+    new MiniCssExtractPlugin({ filename: 'styles/[name].css' }),  // Извлечение CSS в отдельные файлы
     new HtmlWebpackPlugin({
-      template: './src/pages/index.html',  // Шаблон для HTML
       filename: 'index.html',
+      template: './src/pages/index.html',  // Шаблон для index.html
+      chunks: ['index'],  // Указываем только нужный chunk
     }),
     new HtmlWebpackPlugin({
-      template: './src/pages/contact.html',  // Шаблон для HTML
       filename: 'contact.html',
+      template: './src/pages/contact.html',  // Шаблон для contact.html
+      chunks: ['contact'],  // Указываем только нужный chunk
     }),
     new HtmlWebpackPlugin({
-      template: './src/pages/ourmenu.html',  // Шаблон для HTML
       filename: 'ourmenu.html',
+      template: './src/pages/ourmenu.html',  // Шаблон для ourmenu.html
+      chunks: ['ourmenu'],  // Указываем только нужный chunk
     }),
   ],
+  devServer: {
+    static: './dist',
+    hot: true,
+  },
+  mode: 'development',
 };
