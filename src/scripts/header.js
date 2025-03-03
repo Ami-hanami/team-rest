@@ -1,6 +1,7 @@
 import logoSrc from "../icons/logo.png";
 import cartIconSrc from "../icons/shopping-cart.svg";
 import searchIconSrc from "../icons/Search-icon.svg";
+import "../style/header.css";
 
 
 // Функция для создания хедера
