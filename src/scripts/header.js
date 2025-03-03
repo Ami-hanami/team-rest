@@ -3,8 +3,7 @@ import cartIconSrc from "../icons/shopping-cart.svg";
 import searchIconSrc from "../icons/Search-icon.svg";
 import "../style/header.css";
 
-
-// Функция для создания хедера
+// эта короче функция да. не я ее делал, но она нужна, не трогать!
 function createHeader() {
     if (document.querySelector("header")) return document.querySelector("header");
 

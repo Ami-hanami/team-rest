@@ -1,4 +1,5 @@
 
+
 import createHeader from './header.js';
 createHeader();
 
@@ -66,6 +67,7 @@ myMenu.forEach((item, index) => {
     itemAmount.classList.add('price-block__amount');
     itemAmount.setAttribute('type', 'number');
     itemAmount.setAttribute('value', '0');
+    itemAmount.setAttribute('max', '50'); // не работает ??
     itemAmount.setAttribute('onkeydown', 'return false');
 
     const itemAmountDecrease = document.createElement('button');
@@ -84,12 +86,33 @@ myMenu.forEach((item, index) => {
         itemAmount.value++;
     });
 
-    itemAmountContainer.appendChild(itemAmountDecrease);
-    itemAmountContainer.appendChild(itemAmount);
-    itemAmountContainer.appendChild(itemAmountIncrease);
+    const itemAmountBtns = document.createElement('div');
+    itemAmountBtns.classList.add('price-block__amount-btns');
+
+    // itemAmountContainer.appendChild(itemAmountDecrease);
+    // itemAmountContainer.appendChild(itemAmount);
+    // itemAmountContainer.appendChild(itemAmountIncrease);
+
+    itemAmountBtns.appendChild(itemAmountDecrease);
+    itemAmountBtns.appendChild(itemAmount);
+    itemAmountBtns.appendChild(itemAmountIncrease);
+
+    itemAmountContainer.appendChild(itemAmountBtns);
 
     const itemBasketBtn = document.createElement('button');
     itemBasketBtn.classList.add('basket-btn');
+//     const basketIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+//     <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" stroke="white"/>
+//     <path d="M11.6667 11.6667H13.1168C14.0168 11.6667 14.7251 12.4417 14.6501 13.3334L13.9584 21.6334C13.8417 22.9917 14.9167 24.1584 16.2834 24.1584H25.1584C26.3584 24.1584 27.4084 23.1751 27.5001 21.9834L27.9501 15.7334C28.0501 14.3501 27.0001 13.2251 25.6084 13.2251H14.8501" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+//     <path d="M23.5417 28.3333C24.117 28.3333 24.5833 27.867 24.5833 27.2917C24.5833 26.7164 24.117 26.25 23.5417 26.25C22.9664 26.25 22.5 26.7164 22.5 27.2917C22.5 27.867 22.9664 28.3333 23.5417 28.3333Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+//     <path d="M16.8749 28.3333C17.4502 28.3333 17.9166 27.867 17.9166 27.2917C17.9166 26.7164 17.4502 26.25 16.8749 26.25C16.2996 26.25 15.8333 26.7164 15.8333 27.2917C15.8333 27.867 16.2996 28.3333 16.8749 28.3333Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+//     <path d="M17.5 16.6667H27.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+//     </svg>`;
+//    basketIconSvg.setAttribute('fill', 'black');
+    
+
+
+//     itemBasketBtn.innerHTML = basketIconSvg;
 
     itemBasketBtn.addEventListener('click', () => {
         const itemAmountValue = itemAmount.value;
@@ -101,11 +124,16 @@ myMenu.forEach((item, index) => {
     const itemBasket = document.createElement('img');
     itemBasket.classList.add('basket-icon');
     itemBasket.setAttribute('src', require('../icons/basket-btn.svg'));
+    // const itemBasket = document.createElement('svg');
+    // itemBasket.classList.add('basket-icon');
+    // itemBasket.setAttribute('xlmns', 'http://www.w3.org/2000/svg');
     itemBasketBtn.appendChild(itemBasket);
+
+    itemAmountContainer.appendChild(itemBasketBtn);
 
     itemPriceBlock.appendChild(itemPrice);
     itemPriceBlock.appendChild(itemAmountContainer);
-    itemPriceBlock.appendChild(itemBasketBtn);
+    // itemPriceBlock.appendChild(itemBasketBtn);
 
     menuItem.appendChild(itemImg);
     menuItem.appendChild(itemName);

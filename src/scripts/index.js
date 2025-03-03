@@ -2,7 +2,7 @@ import '../style/index.css';
 import createHeader from './header.js';
 
 
-const header = createHeader();  
+const header = createHeader();
 
 const container = document.createElement("div");
 container.classList.add("container");
