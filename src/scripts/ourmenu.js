@@ -35,6 +35,9 @@ const menu6 = new Menu('Sandwich', 'Fresh bread filled with your choice of meats
 
 myMenu.push(menu1, menu2, menu3, menu4, menu5, menu6);
 
+
+// создаем карточки меню 
+
 myMenu.forEach((item, index) => {
     const menuItem = document.createElement('div');
     menuItem.classList.add('menu-item');
@@ -63,28 +66,9 @@ myMenu.forEach((item, index) => {
     const itemAmountContainer = document.createElement('div');
     itemAmountContainer.classList.add('price-block__amount-container');
 
-    const itemAmount = document.createElement('input');
-    itemAmount.classList.add('price-block__amount');
-    itemAmount.setAttribute('type', 'number');
-    itemAmount.setAttribute('value', '0');
-    itemAmount.setAttribute('max', '50'); // не работает ??
-    itemAmount.setAttribute('onkeydown', 'return false');
-
-    const itemAmountDecrease = document.createElement('button');
-    itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
-    itemAmountDecrease.textContent = '-';
-    itemAmountDecrease.addEventListener('click', () => {
-        if (itemAmount.value > 0) {
-            itemAmount.value--;
-        }
-    });
-
-    const itemAmountIncrease = document.createElement('button');
-    itemAmountIncrease.classList.add('price-block__amount-btn-increase');
-    itemAmountIncrease.textContent = '+';
-    itemAmountIncrease.addEventListener('click', () => {
-        itemAmount.value++;
-    });
+    const itemAmount = createItemAmount();
+    const itemAmountDecrease = createItemAmountDecrease(itemAmount);
+    const itemAmountIncrease = createItemAmountIncrease(itemAmount);
 
     const itemAmountBtns = document.createElement('div');
     itemAmountBtns.classList.add('price-block__amount-btns');
@@ -95,18 +79,9 @@ myMenu.forEach((item, index) => {
 
     itemAmountContainer.appendChild(itemAmountBtns);
 
+
     const itemBasketBtn = document.createElement('button');
     itemBasketBtn.classList.add('basket-btn');
-//     const basketIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-//     <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" stroke="white"/>
-//     <path d="M11.6667 11.6667H13.1168C14.0168 11.6667 14.7251 12.4417 14.6501 13.3334L13.9584 21.6334C13.8417 22.9917 14.9167 24.1584 16.2834 24.1584H25.1584C26.3584 24.1584 27.4084 23.1751 27.5001 21.9834L27.9501 15.7334C28.0501 14.3501 27.0001 13.2251 25.6084 13.2251H14.8501" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-//     <path d="M23.5417 28.3333C24.117 28.3333 24.5833 27.867 24.5833 27.2917C24.5833 26.7164 24.117 26.25 23.5417 26.25C22.9664 26.25 22.5 26.7164 22.5 27.2917C22.5 27.867 22.9664 28.3333 23.5417 28.3333Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-//     <path d="M16.8749 28.3333C17.4502 28.3333 17.9166 27.867 17.9166 27.2917C17.9166 26.7164 17.4502 26.25 16.8749 26.25C16.2996 26.25 15.8333 26.7164 15.8333 27.2917C15.8333 27.867 16.2996 28.3333 16.8749 28.3333Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-//     <path d="M17.5 16.6667H27.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-//     </svg>`;
-//    basketIconSvg.setAttribute('fill', 'black');
-
-//     itemBasketBtn.appendChild(basketIconSvg);
 
     const itemBasket = document.createElement('img');
     itemBasket.classList.add('basket-icon');
@@ -115,6 +90,7 @@ myMenu.forEach((item, index) => {
     itemBasketBtn.addEventListener('click', () => {
         const itemAmountValue = itemAmount.value;
         if (itemAmountValue > 0) {
+            itemBasketBtn.style.backgroundColor = 'rgba(136, 9, 9, 0.87)';
             changeItemBasketStyle(itemBasket);
             addMyOrderItem(item.name, itemAmountValue, item.price);
         }
@@ -138,9 +114,43 @@ function importImg(itemPosition) {
     return itemImgSrc;
 }
 
+function createItemAmount() {
+    const itemAmount = document.createElement('input');
+    itemAmount.classList.add('price-block__amount');
+    itemAmount.setAttribute('type', 'number');
+    itemAmount.setAttribute('value', '0');
+    itemAmount.setAttribute('max', '50'); // не работает ??
+    itemAmount.setAttribute('onkeydown', 'return false');
+    return itemAmount;
+}
+
+function createItemAmountDecrease(itemAmount) {    
+    const itemAmountDecrease = document.createElement('button');
+    itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
+    itemAmountDecrease.textContent = '-';
+    itemAmountDecrease.addEventListener('click', () => {
+        if (itemAmount.value > 0) {
+            itemAmount.value--;
+        }
+    });
+    return itemAmountDecrease;
+}
+
+function createItemAmountIncrease(itemAmount) {
+    const itemAmountIncrease = document.createElement('button');
+    itemAmountIncrease.classList.add('price-block__amount-btn-increase');
+    itemAmountIncrease.textContent = '+';
+    itemAmountIncrease.addEventListener('click', () => {
+        itemAmount.value++;
+    });
+    return itemAmountIncrease;
+}
+
 mainMenu.appendChild(h2Menu);
 mainMenu.appendChild(menuContainer);
 document.body.appendChild(mainMenu);
+
+// создаем корзину и ее содержимое
 
 function Order (name, value, price) {
     this.name = name;
@@ -155,27 +165,24 @@ function addMyOrderItem(name, value, price) {
     console.table(myOrder);
 }
 
-// myOrder.forEach((item) => {
-//     createBasketOrder(item);
-//     console.log(item);
-// });
-
-
-const buttonBas = document.createElement('button');
+const buttonBas = document.createElement('button');  // временная кнопка корзины
 buttonBas.classList.add('bas-btn');
 buttonBas.textContent = 'Basket';
 mainMenu.appendChild(buttonBas);
 
-const orderItemContainer = document.createElement('div');
+const orderItemContainer = document.createElement('div');  // контейнер для заказа
 orderItemContainer.classList.add('order-item-container');
 orderItemContainer.textContent = 'Your order:';
 mainMenu.appendChild(orderItemContainer);
+
+
+// функция для создания карточки заказа
 
 function createBasketOrder(item) {
     const orderItem = document.createElement('div');
     orderItem.classList.add('order-item');
 
-    // const orderPosition = document.createElement('p');
+    // const orderPosition = document.createElement('p');    // позиция в заказе ? нужна ли
     // orderPosition.classList.add('order-item__position');
     // orderPosition.textContent = `${myOrder.indexOf(item) + 1}.`;
 
@@ -190,40 +197,44 @@ function createBasketOrder(item) {
     orderItemPrice.classList.add('order-item__price');
     orderItemPrice.textContent = item.price;
 
-    // orderItemBlock.appendChild(orderItemName);
-    // orderItemBlock.appendChild(orderItemPrice);
+    orderItemBlock.appendChild(orderItemName);
+    orderItemBlock.appendChild(orderItemPrice);
 
-    
 
-    const orderItemAmount = document.createElement('p');
-    orderItemAmount.classList.add('oder-item__amount');
-    orderItemAmount.textContent = item.value;
+    const orderItemAmount = document.createElement('input');
+    orderItemAmount.classList.add('order-item__amount');
+    orderItemAmount.value = item.value;
+
+    const orderItemDecrease = createItemAmountDecrease(orderItemAmount);
+    const orderItemIncrease = createItemAmountIncrease(orderItemAmount);
 
     const orderItemTotalPrice = document.createElement('p');
     orderItemTotalPrice.classList.add('order-item__total-price');
     orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +item.value).toFixed(2)}`;
     
-    const orderItemRemove = document.createElement('button');
-    orderItemRemove.classList.add('order-item__remove-btn');
-    orderItemRemove.textContent = 'Remove';
-    orderItemRemove.addEventListener('click', () => {
-        orderItem.remove();
-    });
-    
-    orderItemBlock.appendChild(orderItemPrice);
-    orderItemBlock.appendChild(orderItemAmount);
-    orderItemBlock.appendChild(orderItemTotalPrice);
-    orderItemBlock.appendChild(orderItemRemove);
+    // const orderItemRemove = document.createElement('button');
+    // orderItemRemove.classList.add('order-item__remove-btn');
+    // orderItemRemove.textContent = 'Remove';
+    // orderItemRemove.addEventListener('click', () => {
+    //     orderItem.remove();
+    // });
 
-    // orderItem.appendChild(orderPosition);
-    orderItem.appendChild(orderItemName);
-    orderItem.appendChild(orderItemBlock);
-    // orderItem.appendChild(orderItemAmount);
-    // orderItem.appendChild(orderItemTotalPrice);
-    // orderItem.appendChild(orderItemRemove);
-    orderItemContainer.appendChild(orderItem);
-    // mainMenu.appendChild(orderItemContainer);
+    const orderItemTotalBlock = document.createElement('div');
+    orderItemTotalBlock.classList.add('order-item__total-block');
+    orderItemTotalBlock.appendChild(orderItemAmount);
+    orderItemTotalBlock.appendChild(orderItemTotalPrice);
+
+    const orderItemTotalContainer = document.createElement('div');
+    orderItemTotalContainer.classList.add('order-item__total-container');   
+    orderItemTotalContainer.appendChild(orderItemDecrease);
+    orderItemTotalContainer.appendChild(orderItemTotalBlock);   
+    orderItemTotalContainer.appendChild(orderItemIncrease);
     
+  
+    orderItem.appendChild(orderItemBlock);
+    orderItem.appendChild(orderItemTotalContainer);
+    orderItemContainer.appendChild(orderItem);
+
     console.log(orderItemContainer)
     
     buttonBas.addEventListener('click', () => {

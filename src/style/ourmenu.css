@@ -188,7 +188,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 .basket-btn {
     background-color: transparent;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
     border: none;
+    transition: all 0.5s ease;
+    filter: drop-shadow(0px 0px 3px #8d4343);
 }
 
 .basket-icon {
@@ -229,9 +234,8 @@ input[type=number]::-webkit-outer-spin-button {
 .order-item {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-self: flex-start;
+    justify-content: space-between;
+    align-self: center
     /* gap: 10px; */
     /* padding: 10px; */
 
@@ -239,8 +243,9 @@ input[type=number]::-webkit-outer-spin-button {
 
 .order-item__block {
     display: flex;
-    gap: 20px;
-    justify-content: space-between;
+    flex-direction: column;
+    /* gap: 20px; */
+    /* justify-content: space-between; */
 }
 
 .order-item__name {}
@@ -250,7 +255,14 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .order-item__amount {
-    /* margin-left: 50px; */
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 34px;
+    width: 40px;
+    height: 32px;
+    color: #292828;
+    text-align: center;
+    border: none;
 }
 
 .order-item__total-price {
@@ -258,3 +270,21 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .order-item__remove-btn {}
+
+.order-item__total-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.order-item__total-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 3px 10px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 120px;
+}
