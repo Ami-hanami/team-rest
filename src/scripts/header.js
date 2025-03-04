@@ -34,7 +34,7 @@ function createHeader() {
 
     const linkaboutus = document.createElement("a");
     linkaboutus.classList.add("list-item"); // исправленный класс для aboutus
-    linkaboutus.textContent = "aboutus"; // исправленное название для aboutus
+    linkaboutus.textContent = "About Us"; // исправленное название для aboutus
     linkaboutus.setAttribute("href", "../aboutus.html");
 
     const logo = document.createElement("img");
