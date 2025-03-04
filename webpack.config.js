@@ -7,6 +7,7 @@ module.exports = {
     index: './src/scripts/index.js',  // Путь к main.js в папке src
     contact: './src/scripts/contact.js',  // Путь к contact.js
     ourmenu: './src/scripts/ourmenu.js',  // Путь к ourmenu.js
+    aboutus: './src/scripts/aboutus.js',  // Путь к ourmenu.js
   },
   output: {
     filename: 'scripts/[name].bundle.js',
@@ -44,6 +45,11 @@ module.exports = {
       filename: 'ourmenu.html',
       template: './src/pages/ourmenu.html',  // Шаблон для ourmenu.html
       chunks: ['ourmenu'],  // Указываем только нужный chunk
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'aboutus.html',
+      template: './src/pages/aboutus.html',  // Шаблон для aboutus.html
+      chunks: ['aboutus'],  // Указываем только нужный chunk
     }),
   ],
   devServer: {
