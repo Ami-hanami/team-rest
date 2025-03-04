@@ -119,7 +119,7 @@ a {
     display: none;
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 1150px) {
     header {
         padding: 0 60px;
         font-size: 15px;
@@ -155,7 +155,7 @@ a {
         font-size: 15px;
     }
 }
-@media (max-width: 768px) {
+@media (max-width: 788px) {
     .burgermenu {
         display: block;
     }
@@ -212,7 +212,7 @@ a {
         border-radius: 10px;
     }
 }
-@media (min-width: 769px) {
+@media (min-width: 789px) {
     .burgermenu {
         display: none;
     }
@@ -228,3 +228,13 @@ a {
         margin: 0;
     }
 }
+html {
+    opacity: 0.85;
+    animation: fadeIn 1.3s forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
