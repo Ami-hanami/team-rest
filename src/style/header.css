@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Doto:wght@100..900&family=Eater&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Tilt+Warp&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Vidaloka&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    background-color: #0D0D0D;
+    width: 100%;
+    height: 128px;
+    font-size: 18px;
+    padding: 0 180px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 20px 1px 30px rgba(113, 113, 113, 0.2);
+}
+
+.nav-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 42px;
+    list-style-type: none;
+}
+.nav-list.active {
+    display: block;
+}
+.list-item {
+    transition: 0.3s all;
+}
+.list-item:hover {
+    color: orange;
+    text-decoration:underline
+}
+.member-btn {
+    border-radius: 40px;
+    padding: 17px 25px;
+    transition: 0.5s all;
+    cursor: pointer;
+    font-weight: 700;
+}
+.member-btn:hover {
+    transform: scale(1.1);
+    background-color: orange;
+
+}
+.cart {
+    width: 40px;
+    height: auto;
+    filter: invert(100%) brightness(100%);
+    cursor: pointer;
+    transition: 0.5s all;
+}
+.cart:hover {
+    transform: scale(1.2);
+}
+.search {
+    cursor: pointer;
+    transition: 0.5s all;
+}
+.search:hover {
+    transform: scale(1.2);
+}
+.service-container {
+    display: flex;
+    gap: 30px;
+}
+.list-item {
+    color: white;
+}
+a {
+    text-decoration: none;
+}
+.container {
+   display: flex;
+   flex-direction: column;
+   gap: 50px;
+   padding: 100px 180px;
+}
+.button {
+    max-width: 200px;
+    height: 70px;
+    font-size: 18px;
+    border-radius: 40px;
+    transition: 0.5s all;
+    cursor: pointer;
+    font-weight: 700;
+}
+.button:hover {
+    transform: scale(1.1);
+    background-color: orange;
+
+}
+.h1 {
+    font-size: 66px;
+    color: white;
+    max-width: 700px;
+    letter-spacing: 3px;
+}
+.p {
+    font-size: 20px;
+    color: white;
+    max-width: 600px;
+    letter-spacing: 4px;
+}
+.burgermenu  {
+    font-size: 30px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    z-index: 1000;
+    display: none;
+}
+
+@media (max-width: 1120px) {
+    header {
+        padding: 0 60px;
+        font-size: 15px;
+    }
+    .logo {
+        width: 80px;
+        height: auto;
+    }
+    .cart {
+    width: 25px;
+    height: auto;
+    }
+    .search {
+        width: 22px;
+        height: auto;
+    }
+    .member-btn {
+        padding: 13px 10px;
+        font-size: 12px;
+    }
+    .container {
+        padding: 70px 60px;
+    }
+    .h1 {
+        font-size: 40px;
+    }
+    .p {
+        font-size: 16px;
+    }
+    .button {
+        max-width: 160px;
+        height: 50px;
+        font-size: 15px;
+    }
+}
+@media (max-width: 768px) {
+    .burgermenu {
+        display: block;
+    }
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    .nav-list.active {
+        display: flex;
+    }
+
+    .nav-list li {
+        margin: 20px 0;
+    }
+    .member-btn {
+        display: none;
+    }
+    .cart {
+        display: none;
+    }
+    .search {
+        display: none;
+    }
+    header {
+    font-size: 13px;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 20px 1px 30px rgba(113, 113, 113, 0.2);
+    }
+    .h1 {
+        font-size: 30px;
+        max-width: 600px;
+    }
+    .container {
+        gap: 30px;
+        padding: 30px 30px;
+
+    }
+    .button {
+        margin: 10px 0 0 0 ;
+        padding: 20px 40px;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        border-radius: 10px;
+    }
+}
+@media (min-width: 769px) {
+    .burgermenu {
+        display: none;
+    }
+
+    .nav-list {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 0;
+    }
+
+    .nav-list li {
+        margin: 0;
+    }
+}
