@@ -89,10 +89,6 @@ myMenu.forEach((item, index) => {
     const itemAmountBtns = document.createElement('div');
     itemAmountBtns.classList.add('price-block__amount-btns');
 
-    // itemAmountContainer.appendChild(itemAmountDecrease);
-    // itemAmountContainer.appendChild(itemAmount);
-    // itemAmountContainer.appendChild(itemAmountIncrease);
-
     itemAmountBtns.appendChild(itemAmountDecrease);
     itemAmountBtns.appendChild(itemAmount);
     itemAmountBtns.appendChild(itemAmountIncrease);
@@ -109,31 +105,26 @@ myMenu.forEach((item, index) => {
 //     <path d="M17.5 16.6667H27.5" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 //     </svg>`;
 //    basketIconSvg.setAttribute('fill', 'black');
-    
 
-
-//     itemBasketBtn.innerHTML = basketIconSvg;
-
-    itemBasketBtn.addEventListener('click', () => {
-        const itemAmountValue = itemAmount.value;
-        if (itemAmountValue > 0) {
-            addBasketItem(item.name, itemAmountValue, item.price);
-        }
-    });
+//     itemBasketBtn.appendChild(basketIconSvg);
 
     const itemBasket = document.createElement('img');
     itemBasket.classList.add('basket-icon');
     itemBasket.setAttribute('src', require('../icons/basket-btn.svg'));
-    // const itemBasket = document.createElement('svg');
-    // itemBasket.classList.add('basket-icon');
-    // itemBasket.setAttribute('xlmns', 'http://www.w3.org/2000/svg');
-    itemBasketBtn.appendChild(itemBasket);
 
+    itemBasketBtn.addEventListener('click', () => {
+        const itemAmountValue = itemAmount.value;
+        if (itemAmountValue > 0) {
+            changeItemBasketStyle(itemBasket);
+            addMyOrderItem(item.name, itemAmountValue, item.price);
+        }
+    });
+
+    itemBasketBtn.appendChild(itemBasket);
     itemAmountContainer.appendChild(itemBasketBtn);
 
     itemPriceBlock.appendChild(itemPrice);
     itemPriceBlock.appendChild(itemAmountContainer);
-    // itemPriceBlock.appendChild(itemBasketBtn);
 
     menuItem.appendChild(itemImg);
     menuItem.appendChild(itemName);
@@ -151,39 +142,100 @@ mainMenu.appendChild(h2Menu);
 mainMenu.appendChild(menuContainer);
 document.body.appendChild(mainMenu);
 
-function addBasketItem(name, value, price) {
+function Order (name, value, price) {
+    this.name = name;
+    this.value = value;
+    this.price = price;
+}
+
+function addMyOrderItem(name, value, price) {
+    const orderItem = new Order(name, value, price);
+    myOrder.push(orderItem);
+    createBasketOrder(orderItem);
+    console.table(myOrder);
+}
+
+// myOrder.forEach((item) => {
+//     createBasketOrder(item);
+//     console.log(item);
+// });
+
+
+const buttonBas = document.createElement('button');
+buttonBas.classList.add('bas-btn');
+buttonBas.textContent = 'Basket';
+mainMenu.appendChild(buttonBas);
+
+const orderItemContainer = document.createElement('div');
+orderItemContainer.classList.add('order-item-container');
+orderItemContainer.textContent = 'Your order:';
+mainMenu.appendChild(orderItemContainer);
+
+function createBasketOrder(item) {
     const orderItem = document.createElement('div');
     orderItem.classList.add('order-item');
+
+    // const orderPosition = document.createElement('p');
+    // orderPosition.classList.add('order-item__position');
+    // orderPosition.textContent = `${myOrder.indexOf(item) + 1}.`;
 
     const orderItemBlock = document.createElement('div');
     orderItemBlock.classList.add('order-item__block');
 
     const orderItemName = document.createElement('p');
     orderItemName.classList.add('order-item__name');
-    orderItemName.textContent = name;
+    orderItemName.textContent = item.name;
 
     const orderItemPrice = document.createElement('p');
     orderItemPrice.classList.add('order-item__price');
-    orderItemPrice.textContent = price;
+    orderItemPrice.textContent = item.price;
 
-    orderItemBlock.appendChild(orderItemName);
-    orderItemBlock.appendChild(orderItemPrice);
+    // orderItemBlock.appendChild(orderItemName);
+    // orderItemBlock.appendChild(orderItemPrice);
+
+    
 
     const orderItemAmount = document.createElement('p');
     orderItemAmount.classList.add('oder-item__amount');
-    orderItemAmount.textContent = value;
+    orderItemAmount.textContent = item.value;
+
+    const orderItemTotalPrice = document.createElement('p');
+    orderItemTotalPrice.classList.add('order-item__total-price');
+    orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +item.value).toFixed(2)}`;
     
     const orderItemRemove = document.createElement('button');
-    orderItemRemove.classList.add('order-item__remove');
+    orderItemRemove.classList.add('order-item__remove-btn');
     orderItemRemove.textContent = 'Remove';
     orderItemRemove.addEventListener('click', () => {
         orderItem.remove();
     });
+    
+    orderItemBlock.appendChild(orderItemPrice);
+    orderItemBlock.appendChild(orderItemAmount);
+    orderItemBlock.appendChild(orderItemTotalPrice);
+    orderItemBlock.appendChild(orderItemRemove);
 
+    // orderItem.appendChild(orderPosition);
+    orderItem.appendChild(orderItemName);
     orderItem.appendChild(orderItemBlock);
-    orderItem.appendChild(orderItemAmount);
-    orderItem.appendChild(orderItemRemove);
+    // orderItem.appendChild(orderItemAmount);
+    // orderItem.appendChild(orderItemTotalPrice);
+    // orderItem.appendChild(orderItemRemove);
+    orderItemContainer.appendChild(orderItem);
+    // mainMenu.appendChild(orderItemContainer);
+    
+    console.log(orderItemContainer)
+    
+    buttonBas.addEventListener('click', () => {
+        orderItemContainer.classList.toggle('active');
+});
 
-    // myOrder.push(orderItem);
-    // console.log(myOrder);
+
+}
+
+    
+
+function changeItemBasketStyle(itemBasket) {
+    itemBasket.style.transform = 'scale(1.1)';
+    itemBasket.style.filter = 'drop-shadow(0px 0px 3px#ffffff)';
 }
