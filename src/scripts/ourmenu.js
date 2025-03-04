@@ -197,8 +197,12 @@ function createBasketOrder(item) {
 
     const orderItemAmount = document.createElement('p');
     orderItemAmount.classList.add('oder-item__amount');
-    orderItemAmount.textContent = value;
+    orderItemAmount.textContent = item.value;
 
+    const orderItemTotalPrice = document.createElement('p');
+    orderItemTotalPrice.classList.add('order-item__total-price');
+    orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +item.value).toFixed(2)}`;
+    
     const orderItemRemove = document.createElement('button');
     orderItemRemove.classList.add('order-item__remove-btn');
     orderItemRemove.textContent = 'Remove';
