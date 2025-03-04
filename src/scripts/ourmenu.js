@@ -79,6 +79,21 @@ myMenu.forEach((item, index) => {
 
     itemAmountContainer.appendChild(itemAmountBtns);
 
+    itemAmountDecrease.addEventListener('click', () => {
+        if (itemAmount.value > 0) {
+            itemAmount.value--;
+            // console.log(itemAmount.value);
+        }
+    });
+
+    itemAmountIncrease.addEventListener('click', () => {
+        itemAmount.value++;
+        if (itemAmount.value > 50) {
+            itemAmount.value = 50;
+            alert('You can order no more than 50 items!');
+        }
+        // console.log(itemAmount.value);
+    });
 
     const itemBasketBtn = document.createElement('button');
     itemBasketBtn.classList.add('basket-btn');
@@ -128,11 +143,12 @@ function createItemAmountDecrease(itemAmount) {
     const itemAmountDecrease = document.createElement('button');
     itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
     itemAmountDecrease.textContent = '-';
-    itemAmountDecrease.addEventListener('click', () => {
-        if (itemAmount.value > 0) {
-            itemAmount.value--;
-        }
-    });
+    // itemAmountDecrease.addEventListener('click', () => {
+    //     if (itemAmount.value > 0) {
+    //         itemAmount.value--;
+    //         // console.log(itemAmount.value);
+    //     }
+    // });
     return itemAmountDecrease;
 }
 
@@ -140,9 +156,14 @@ function createItemAmountIncrease(itemAmount) {
     const itemAmountIncrease = document.createElement('button');
     itemAmountIncrease.classList.add('price-block__amount-btn-increase');
     itemAmountIncrease.textContent = '+';
-    itemAmountIncrease.addEventListener('click', () => {
-        itemAmount.value++;
-    });
+    // itemAmountIncrease.addEventListener('click', () => {
+    //     itemAmount.value++;
+    //     if (itemAmount.value > 50) {
+    //         itemAmount.value = 50;
+    //         alert('You can order no more than 50 items!');
+    //     }
+    //     // console.log(itemAmount.value);
+    // });
     return itemAmountIncrease;
 }
 
@@ -162,18 +183,26 @@ function addMyOrderItem(name, value, price) {
     const orderItem = new Order(name, value, price);
     myOrder.push(orderItem);
     createBasketOrder(orderItem);
+    // updateOrderTotalValue();
     console.table(myOrder);
 }
+
+
+const orderItemContainer = document.createElement('div');  // контейнер для заказа
+orderItemContainer.classList.add('order-item-container');
+orderItemContainer.textContent = 'Your order:';
+
+const orderTotalValue = document.createElement('div');
+orderTotalValue.classList.add('order-total-value');
 
 const buttonBas = document.createElement('button');  // временная кнопка корзины
 buttonBas.classList.add('bas-btn');
 buttonBas.textContent = 'Basket';
 mainMenu.appendChild(buttonBas);
 
-const orderItemContainer = document.createElement('div');  // контейнер для заказа
-orderItemContainer.classList.add('order-item-container');
-orderItemContainer.textContent = 'Your order:';
-mainMenu.appendChild(orderItemContainer);
+buttonBas.addEventListener('click', () => {
+    orderItemContainer.classList.toggle('active');
+});
 
 
 // функция для создания карточки заказа
@@ -204,20 +233,39 @@ function createBasketOrder(item) {
     const orderItemAmount = document.createElement('input');
     orderItemAmount.classList.add('order-item__amount');
     orderItemAmount.value = item.value;
+    console.log(orderItemAmount.value);
+    console.log(item.value);
 
     const orderItemDecrease = createItemAmountDecrease(orderItemAmount);
     const orderItemIncrease = createItemAmountIncrease(orderItemAmount);
 
+    orderItemDecrease.addEventListener('click', () => {
+        if (orderItemAmount.value > 1) {
+            orderItemAmount.value--;
+            updateTotalPrice();
+        }
+        else orderItem.remove();
+        updateOrderTotalValue();
+    });
+
+    orderItemIncrease.addEventListener('click', () => {
+        if (orderItemAmount.value < 50) {
+            orderItemAmount.value++;
+            updateTotalPrice();
+        } else {
+            alert('You can order no more than 50 items!');
+        }
+        updateOrderTotalValue();
+    });
+
     const orderItemTotalPrice = document.createElement('p');
     orderItemTotalPrice.classList.add('order-item__total-price');
-    orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +item.value).toFixed(2)}`;
-    
-    // const orderItemRemove = document.createElement('button');
-    // orderItemRemove.classList.add('order-item__remove-btn');
-    // orderItemRemove.textContent = 'Remove';
-    // orderItemRemove.addEventListener('click', () => {
-    //     orderItem.remove();
-    // });
+    orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`
+  
+
+    function updateTotalPrice() {
+        orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`;
+    }
 
     const orderItemTotalBlock = document.createElement('div');
     orderItemTotalBlock.classList.add('order-item__total-block');
@@ -230,21 +278,26 @@ function createBasketOrder(item) {
     orderItemTotalContainer.appendChild(orderItemTotalBlock);   
     orderItemTotalContainer.appendChild(orderItemIncrease);
     
+
+    // orderTotalValue.textContent = 'Total: $0.00';
   
     orderItem.appendChild(orderItemBlock);
     orderItem.appendChild(orderItemTotalContainer);
     orderItemContainer.appendChild(orderItem);
+    orderItemContainer.appendChild(orderTotalValue);
 
+    updateOrderTotalValue();
     console.log(orderItemContainer)
-    
-    buttonBas.addEventListener('click', () => {
-        orderItemContainer.classList.toggle('active');
-});
-
 
 }
 
-    
+function updateOrderTotalValue() {
+    let totalValue = myOrder.reduce((sum, item) => sum + (+item.price.slice(1) * item.value), 0);
+    orderTotalValue.textContent = `Total: $${totalValue.toFixed(2)}`;
+}
+
+
+mainMenu.appendChild(orderItemContainer);
 
 function changeItemBasketStyle(itemBasket) {
     itemBasket.style.transform = 'scale(1.1)';
