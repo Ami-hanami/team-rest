@@ -145,7 +145,7 @@ function addBasketItem(name, value, price) {
     const orderItemAmount = document.createElement('p');
     orderItemAmount.classList.add('oder-item__amount');
     orderItemAmount.textContent = value;
-    
+
     const orderItemRemove = document.createElement('button');
     orderItemRemove.classList.add('order-item__remove');
     orderItemRemove.textContent = 'Remove';
