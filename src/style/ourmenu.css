@@ -218,22 +218,38 @@ input[type=number]::-webkit-outer-spin-button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     /* padding: 30px 30px; */
     padding-top: 20px;
     border-radius: 20px;
     background-color: #e3e1e1;
     color: #343232;
-    width: 500px;
+    width: 450px;
     display: none;
     font-size: 18px;
     box-sizing: border-box;
     border: 8px solid #f1a31c;
     font-weight: 600;
+    position: fixed;
+    top: 17%;
+    left: 75%;
+    
 }
 
 .active {
     display: flex;
+    animation: slide-order 1.5s ease-in-out;
+}
+
+@keyframes slide-order {
+    from {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
 }
 
 .order-item {
@@ -258,7 +274,7 @@ input[type=number]::-webkit-outer-spin-button {
 .order-item__price {
     margin-right: auto;
     font-size: 16px;
-    font-weight: 400y;
+    font-weight: 400;
 }
 
 .order-item__amount {
@@ -305,4 +321,28 @@ input[type=number]::-webkit-outer-spin-button {
     padding-right: 20px;
     text-align: right;
     border-radius: 8px;
+    border: none;
+}
+
+.order-total-value__text {
+    font-size: 20px;
+    animation: total-animation 2s ease-in-out 0.3s;
+}
+
+@keyframes total-animation {
+    from {
+        transform: translate(-60%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(0%);
+        opacity: 1;
+    }
+}
+
+
+.bas-btn {
+    position: fixed;
+    left: 90%;
+    top: 15%;
 }

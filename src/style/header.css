@@ -119,6 +119,11 @@ a {
     display: none;
 }
 
+.basket-btn__header {
+    border: none;
+    background-color: transparent;
+}
+
 @media (max-width: 1150px) {
     header {
         padding: 0 60px;

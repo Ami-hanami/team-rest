@@ -1,11 +1,17 @@
-
-
-import createHeader from './header.js';
-createHeader();
-
-
 import "../style/ourmenu.css";
 
+import createHeader from './header.js';
+
+
+function basketBtnClick() {
+    if (myOrder.length > 0) {
+        orderItemContainer.classList.toggle('active'); 
+    }
+    else
+    alert('Add some positions to your order!')
+}
+
+createHeader(basketBtnClick);
 
 const myMenu = [];
 const myOrder = [];
@@ -195,14 +201,18 @@ orderItemContainer.textContent = 'Your order:';
 const orderTotalValue = document.createElement('div');
 orderTotalValue.classList.add('order-total-value');
 
-const buttonBas = document.createElement('button');  // временная кнопка корзины
-buttonBas.classList.add('bas-btn');
-buttonBas.textContent = 'Basket';
-mainMenu.appendChild(buttonBas);
+const orderTotalValueText = document.createElement('p');
+orderTotalValueText.classList.add('order-total-value__text');
+orderTotalValue.appendChild(orderTotalValueText);
 
-buttonBas.addEventListener('click', () => {
-    orderItemContainer.classList.toggle('active');
-});
+// const buttonBas = document.createElement('button');  // временная кнопка корзины
+// buttonBas.classList.add('bas-btn');
+// buttonBas.textContent = 'Basket';
+// mainMenu.appendChild(buttonBas);
+
+// buttonBas.addEventListener('click', () => {
+//     orderItemContainer.classList.toggle('active');
+// });
 
 
 // функция для создания карточки заказа
@@ -242,15 +252,22 @@ function createBasketOrder(item) {
     orderItemDecrease.addEventListener('click', () => {
         if (orderItemAmount.value > 1) {
             orderItemAmount.value--;
+            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;
             updateTotalPrice();
+            console.log(myOrder);
         }
-        else orderItem.remove();
+        else {
+            orderItem.remove();
+            myOrder[myOrder.indexOf(item)].value = 0;
+        }
         updateOrderTotalValue();
     });
 
     orderItemIncrease.addEventListener('click', () => {
         if (orderItemAmount.value < 50) {
             orderItemAmount.value++;
+            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;
+            console.log(myOrder);
             updateTotalPrice();
         } else {
             alert('You can order no more than 50 items!');
@@ -277,9 +294,6 @@ function createBasketOrder(item) {
     orderItemTotalContainer.appendChild(orderItemDecrease);
     orderItemTotalContainer.appendChild(orderItemTotalBlock);   
     orderItemTotalContainer.appendChild(orderItemIncrease);
-    
-
-    // orderTotalValue.textContent = 'Total: $0.00';
   
     orderItem.appendChild(orderItemBlock);
     orderItem.appendChild(orderItemTotalContainer);
@@ -288,12 +302,12 @@ function createBasketOrder(item) {
 
     updateOrderTotalValue();
     console.log(orderItemContainer)
-
+    console.table(myOrder);
 }
 
 function updateOrderTotalValue() {
     let totalValue = myOrder.reduce((sum, item) => sum + (+item.price.slice(1) * item.value), 0);
-    orderTotalValue.textContent = `Total: $${totalValue.toFixed(2)}`;
+    orderTotalValueText.textContent = `Total: $${totalValue.toFixed(2)}`;
 }
 
 

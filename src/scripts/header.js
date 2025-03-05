@@ -4,7 +4,7 @@ import searchIconSrc from "../icons/Search-icon.svg";
 import "../style/header.css";
 
 // эта короче функция да. не я ее делал, но она нужна, не трогать!
-function createHeader() {
+function createHeader(basketBtnClick) {
     if (document.querySelector("header")) return document.querySelector("header");
 
     const header = document.createElement("header");
@@ -50,6 +50,16 @@ function createHeader() {
     cart.setAttribute("alt", "basket");
     cart.setAttribute("src", cartIconSrc);
 
+    // создала кнопку корзины и прикрепила к ней иконку
+    const basketBtn = document.createElement('button');
+    basketBtn.classList.add('basket-btn__header');
+    basketBtn.appendChild(cart);
+
+    // обработчик клика на кнопку корзины
+    if (basketBtnClick) {
+      basketBtn.addEventListener("click", basketBtnClick);
+  }
+
     const search = document.createElement("img");
     search.classList.add("search");
     search.setAttribute("alt", "magnifying glass");
@@ -89,7 +99,7 @@ function createHeader() {
     ul.appendChild(li4);  // Теперь добавляем li4
     li4.appendChild(linkaboutus);  // Добавляем ссылку "aboutus"
 
-    serviceCont.appendChild(cart);
+    serviceCont.appendChild(basketBtn);
     serviceCont.appendChild(search);
     serviceCont.appendChild(memberBtn);
 
