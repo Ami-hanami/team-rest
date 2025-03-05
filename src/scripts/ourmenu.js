@@ -205,16 +205,6 @@ const orderTotalValueText = document.createElement('p');
 orderTotalValueText.classList.add('order-total-value__text');
 orderTotalValue.appendChild(orderTotalValueText);
 
-// const buttonBas = document.createElement('button');  // временная кнопка корзины
-// buttonBas.classList.add('bas-btn');
-// buttonBas.textContent = 'Basket';
-// mainMenu.appendChild(buttonBas);
-
-// buttonBas.addEventListener('click', () => {
-//     orderItemContainer.classList.toggle('active');
-// });
-
-
 // функция для создания карточки заказа
 
 function createBasketOrder(item) {
@@ -252,7 +242,7 @@ function createBasketOrder(item) {
     orderItemDecrease.addEventListener('click', () => {
         if (orderItemAmount.value > 1) {
             orderItemAmount.value--;
-            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;
+            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;  // обновляем значение в массиве
             updateTotalPrice();
             console.log(myOrder);
         }
@@ -279,7 +269,7 @@ function createBasketOrder(item) {
     orderItemTotalPrice.classList.add('order-item__total-price');
     orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`
   
-
+    // функция для подсчета итоговой стоимости позиции
     function updateTotalPrice() {
         orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`;
     }
@@ -301,18 +291,20 @@ function createBasketOrder(item) {
     orderItemContainer.appendChild(orderTotalValue);
 
     updateOrderTotalValue();
+    
     console.log(orderItemContainer)
     console.table(myOrder);
 }
 
-function updateOrderTotalValue() {
+mainMenu.appendChild(orderItemContainer);
+
+ // функция для подсчета итоговой стоимости всего заказа
+function updateOrderTotalValue() {  
     let totalValue = myOrder.reduce((sum, item) => sum + (+item.price.slice(1) * item.value), 0);
     orderTotalValueText.textContent = `Total: $${totalValue.toFixed(2)}`;
 }
 
-
-mainMenu.appendChild(orderItemContainer);
-
+// меняет стиль иконки после нажатия на кнопку
 function changeItemBasketStyle(itemBasket) {
     itemBasket.style.transform = 'scale(1.1)';
     itemBasket.style.filter = 'drop-shadow(0px 0px 3px#ffffff)';
