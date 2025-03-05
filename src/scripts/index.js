@@ -1,6 +1,6 @@
 import '../style/index.css';
 import createHeader from './header.js';
-import burgerImageSrc from '../icons/burgerback.png'; 
+import burgerImageSrc from '../icons/burgerback.png';
 
 const header = createHeader();
 
@@ -23,12 +23,12 @@ button.textContent = "Sign in";
 container.appendChild(button);
 button.classList.add("button");
 
-// контейнер для изображения 
+// контейнер для изображения
 const burgerContainer = document.createElement("div");
 burgerContainer.classList.add("burger-container");
 
 const burgerImage = document.createElement("img");
-burgerImage.src = burgerImageSrc; 
+burgerImage.src = burgerImageSrc;
 burgerImage.classList.add("burger-image");
 
 burgerContainer.appendChild(burgerImage);
