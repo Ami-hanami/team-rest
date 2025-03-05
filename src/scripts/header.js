@@ -15,6 +15,7 @@ function createHeader() {
     const li1 = document.createElement("li");
     const li2 = document.createElement("li");
     const li3 = document.createElement("li");
+    const li4 = document.createElement('li'); // исправленный элемент
 
     const linkWelcome = document.createElement("a");
     linkWelcome.classList.add("list-item");
@@ -30,6 +31,11 @@ function createHeader() {
     linkContact.classList.add("list-item");
     linkContact.textContent = "Contact";
     linkContact.setAttribute("href", "../contact.html");
+
+    const linkaboutus = document.createElement("a");
+    linkaboutus.classList.add("list-item"); // исправленный класс для aboutus
+    linkaboutus.textContent = "About Us"; // исправленное название для aboutus
+    linkaboutus.setAttribute("href", "../aboutus.html");
 
     const logo = document.createElement("img");
     logo.classList.add("logo");
@@ -53,19 +59,17 @@ function createHeader() {
     memberBtn.classList.add("member-btn");
     memberBtn.textContent = "Become a Member";
 
-const burgermenu = document.createElement("button");
-burgermenu.classList.add("burgermenu");
-burgermenu.innerHTML = "&#9776;";
+    const burgermenu = document.createElement("button");
+    burgermenu.classList.add("burgermenu");
+    burgermenu.innerHTML = "&#9776;";
 
 
-header.appendChild(burgermenu);
+    header.appendChild(burgermenu);
 
-
-burgermenu.addEventListener("click", () => {
-  const ul = header.querySelector("ul")
-  ul.classList.toggle("active");
-});
-
+    burgermenu.addEventListener("click", () => {
+      const ul = header.querySelector("ul");
+      ul.classList.toggle("active");
+    });
 
     document.body.prepend(header);
 
@@ -80,7 +84,10 @@ burgermenu.addEventListener("click", () => {
     li2.appendChild(linkMenu);
 
     ul.appendChild(li3);
-    li3.appendChild(linkContact);
+    li3.appendChild(linkContact);  // Ссылка "Contact" теперь правильно добавляется в li3
+
+    ul.appendChild(li4);  // Теперь добавляем li4
+    li4.appendChild(linkaboutus);  // Добавляем ссылку "aboutus"
 
     serviceCont.appendChild(cart);
     serviceCont.appendChild(search);
@@ -88,6 +95,5 @@ burgermenu.addEventListener("click", () => {
 
     return header;
 }
-
 
 export default createHeader;
