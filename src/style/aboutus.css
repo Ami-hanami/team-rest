@@ -1,0 +1,94 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0D0D0D;
+}
+
+.maincontainer {
+    padding: 60px 80px; /* Уменьшены отступы */
+}
+
+.maintitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.title {
+    color: white;
+    font-size: 50px;
+    margin: 0 0 10px 0;
+}
+
+.mini-p {
+    color: white;
+    letter-spacing: 2px;
+}
+
+.moretext {
+    margin: 40px 0; /* Уменьшен отступ сверху и снизу */
+    color: rgb(232, 232, 232);
+    font-size: 18px;
+    max-width: 500px;
+    line-height: 30px;
+}
+
+.maintext {
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    align-items: center;
+    padding: 100px 200px;
+}
+.video {
+    width: 570px; /* Видео будет занимать всю ширину контейнера */
+    height: 390px; /* Видео будет занимать всю высоту контейнера */
+    border-radius: 10px;  
+}
+.video-container {
+    position: relative; /* Родительский контейнер для видео */
+    width: 100%;
+    max-width: 500px; /* Максимальная ширина контейнера */
+    height: 300px; /* Фиксированная высота для контейнера */
+    background-color: #333; /* Фон контейнера */
+    display: flex; /* Используем flexbox */
+    justify-content: center; /* Горизонтальное выравнивание */
+    align-items: center; /* Вертикальное выравнивание */
+}
+
+
+
+.playbutton {
+    transition: all 0.3s;
+    position: absolute;
+    top: 50%; /* Центрируем по вертикали */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translate(-50%, -50%); /* Перемещаем кнопку в центр */
+    width: 80px;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачная кнопка */
+    border-radius: 50%;
+    display: flex;
+    align-items: center; /* Центрируем иконку внутри кнопки */
+    justify-content: center; /* Центрируем иконку внутри кнопки */
+    cursor: pointer;
+}
+
+.playbutton::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 25px solid white; /* Белый треугольник */
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    margin: 0 0 0 6px;
+}
+.playbutton:hover {
+    background-color: #2d2d2d;
+}
