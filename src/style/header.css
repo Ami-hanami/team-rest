@@ -150,6 +150,7 @@ a {
     }
     .nav-list.active {
         display: flex;
+        z-index: 1;
     }
 
     .nav-list li {
