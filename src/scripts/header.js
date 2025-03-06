@@ -3,8 +3,15 @@ import cartIconSrc from "../icons/shopping-cart.svg";
 import searchIconSrc from "../icons/Search-icon.svg";
 import "../style/header.css";
 
-// эта короче функция да. не я ее делал, но она нужна, не трогаем не трогаем.
-function createHeader() {
+// функция для обновления количества позиций в корзине
+export function updateBasketBtnDisplay(orderNewLength) {
+  const basketCount = document.getElementById("basketCount");
+  basketCount.textContent = orderNewLength;
+}
+
+// эта короче функция да. не я ее делал, но она нужна, не трогать!
+
+function createHeader(basketBtnClick, updateBasketBtnAmount) {
     if (document.querySelector("header")) return document.querySelector("header");
 
     const header = document.createElement("header");
@@ -50,6 +57,19 @@ function createHeader() {
     cart.setAttribute("alt", "basket");
     cart.setAttribute("src", cartIconSrc);
 
+    // создала кнопку корзины и прикрепила к ней иконку
+    const basketBtn = document.createElement('button');
+    basketBtn.classList.add('basket-btn__header');
+    const basketBtnAmount = document.createElement('p');
+    basketBtnAmount.classList.add("toggle-basketBtn");
+    basketBtnAmount.setAttribute("id", "basketCount"); // присваиваем id для обновления
+    // basketBtnAmount.textContent = `${updateBasketBtnAmount()}`;
+    basketBtn.appendChild(cart);
+    basketBtn.appendChild(basketBtnAmount);
+
+    // обработчик клика на кнопку корзины
+    basketBtn.addEventListener("click", (basketBtnClick));
+
     const search = document.createElement("img");
     search.classList.add("search");
     search.setAttribute("alt", "magnifying glass");
@@ -89,7 +109,7 @@ function createHeader() {
     ul.appendChild(li4);
     li4.appendChild(linkaboutus);
 
-    serviceCont.appendChild(cart);
+    serviceCont.appendChild(basketBtn);
     serviceCont.appendChild(search);
     serviceCont.appendChild(memberBtn);
 
