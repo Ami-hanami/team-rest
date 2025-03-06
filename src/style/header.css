@@ -128,10 +128,10 @@ a {
 .toggle-basketBtn {
     position: absolute;
     color: #ff0000;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 600;
-    left: 30px;
-    top: 40px;
+    left: 32px;
+    top: 38px;
     text-shadow: 0px 0px 20px #ff1c1c;
 }
 
