@@ -22,7 +22,7 @@ function createHeader(basketBtnClick, updateBasketBtnAmount) {
     const li1 = document.createElement("li");
     const li2 = document.createElement("li");
     const li3 = document.createElement("li");
-    const li4 = document.createElement('li'); // исправленный элемент
+    const li4 = document.createElement('li');
 
     const linkWelcome = document.createElement("a");
     linkWelcome.classList.add("list-item");
@@ -40,8 +40,8 @@ function createHeader(basketBtnClick, updateBasketBtnAmount) {
     linkContact.setAttribute("href", "../contact.html");
 
     const linkaboutus = document.createElement("a");
-    linkaboutus.classList.add("list-item"); // исправленный класс для aboutus
-    linkaboutus.textContent = "About Us"; // исправленное название для aboutus
+    linkaboutus.classList.add("list-item");
+    linkaboutus.textContent = "About Us";
     linkaboutus.setAttribute("href", "../aboutus.html");
 
     const logo = document.createElement("img");
@@ -104,10 +104,10 @@ function createHeader(basketBtnClick, updateBasketBtnAmount) {
     li2.appendChild(linkMenu);
 
     ul.appendChild(li3);
-    li3.appendChild(linkContact);  // Ссылка "Contact" теперь правильно добавляется в li3
+    li3.appendChild(linkContact);
 
-    ul.appendChild(li4);  // Теперь добавляем li4
-    li4.appendChild(linkaboutus);  // Добавляем ссылку "aboutus"
+    ul.appendChild(li4);
+    li4.appendChild(linkaboutus);
 
     serviceCont.appendChild(basketBtn);
     serviceCont.appendChild(search);
