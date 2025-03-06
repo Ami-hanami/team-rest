@@ -20,10 +20,12 @@ const paragraph = document.createElement("p");
 paragraph.textContent =
   "Delicious food made with passion and expertise. Experience the best flavors crafted by our top chefs, using the ";
 paragraph.classList.add("mini-p");
+paragraph.classList.add("mini-p1");
 
 const paragraph2 = document.createElement('p');
 paragraph2.textContent = 'finest ingredients and creative techniques to delight your senses.';
 paragraph2.classList.add("mini-p");
+paragraph2.classList.add("mini-p2");
 
 // Основной блок с текстом
 const maintext = document.createElement("div");

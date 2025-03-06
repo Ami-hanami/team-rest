@@ -77,7 +77,7 @@ modalContent.appendChild(form);
 modal.appendChild(modalContent);
 document.body.appendChild(modal);
 
-// окно открывается при нажатии на кнопку 
+// окно открывается при нажатии на кнопку
 button.addEventListener("click", () => {
   modal.style.display = "flex";
 });
