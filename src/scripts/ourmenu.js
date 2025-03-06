@@ -1,7 +1,9 @@
 import "../style/ourmenu.css";
 
-import createHeader from './header.js';
+import createHeader, { updateBasketBtnDisplay } from './header.js';
 
+const myMenu = [];
+const myOrder = [];
 
 function basketBtnClick() {
     if (myOrder.length > 0) {
@@ -11,10 +13,12 @@ function basketBtnClick() {
     alert('Add some positions to your order!')
 }
 
-createHeader(basketBtnClick);
+// function updateBasketBtnAmount() {
+//     return myOrder.length;
+// }
 
-const myMenu = [];
-const myOrder = [];
+createHeader(basketBtnClick)
+
 
 const mainMenu = document.createElement('main');
 mainMenu.classList.add('main-ourmenu');
@@ -88,7 +92,6 @@ myMenu.forEach((item, index) => {
     itemAmountDecrease.addEventListener('click', () => {
         if (itemAmount.value > 0) {
             itemAmount.value--;
-            // console.log(itemAmount.value);
         }
     });
 
@@ -98,7 +101,6 @@ myMenu.forEach((item, index) => {
             itemAmount.value = 50;
             alert('You can order no more than 50 items!');
         }
-        // console.log(itemAmount.value);
     });
 
     const itemBasketBtn = document.createElement('button');
@@ -149,12 +151,6 @@ function createItemAmountDecrease(itemAmount) {
     const itemAmountDecrease = document.createElement('button');
     itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
     itemAmountDecrease.textContent = '-';
-    // itemAmountDecrease.addEventListener('click', () => {
-    //     if (itemAmount.value > 0) {
-    //         itemAmount.value--;
-    //         // console.log(itemAmount.value);
-    //     }
-    // });
     return itemAmountDecrease;
 }
 
@@ -162,14 +158,6 @@ function createItemAmountIncrease(itemAmount) {
     const itemAmountIncrease = document.createElement('button');
     itemAmountIncrease.classList.add('price-block__amount-btn-increase');
     itemAmountIncrease.textContent = '+';
-    // itemAmountIncrease.addEventListener('click', () => {
-    //     itemAmount.value++;
-    //     if (itemAmount.value > 50) {
-    //         itemAmount.value = 50;
-    //         alert('You can order no more than 50 items!');
-    //     }
-    //     // console.log(itemAmount.value);
-    // });
     return itemAmountIncrease;
 }
 
@@ -189,6 +177,7 @@ function addMyOrderItem(name, value, price) {
     const orderItem = new Order(name, value, price);
     myOrder.push(orderItem);
     createBasketOrder(orderItem);
+    updateBasketBtnDisplay(myOrder.length); // добавляем позиции в корзину в header
     // updateOrderTotalValue();
     console.table(myOrder);
 }
@@ -234,7 +223,6 @@ function createBasketOrder(item) {
     orderItemAmount.classList.add('order-item__amount');
     orderItemAmount.value = item.value;
     console.log(orderItemAmount.value);
-    console.log(item.value);
 
     const orderItemDecrease = createItemAmountDecrease(orderItemAmount);
     const orderItemIncrease = createItemAmountIncrease(orderItemAmount);
@@ -242,13 +230,15 @@ function createBasketOrder(item) {
     orderItemDecrease.addEventListener('click', () => {
         if (orderItemAmount.value > 1) {
             orderItemAmount.value--;
-            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;  // обновляем значение в массиве
+            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;  // обновляем значение количества в массиве
             updateTotalPrice();
             console.log(myOrder);
         }
         else {
             orderItem.remove();
-            myOrder[myOrder.indexOf(item)].value = 0;
+            // myOrder[myOrder.indexOf(item)].value = 0;
+            myOrder.splice(myOrder.indexOf(item), 1); // удаляем позицую из массива по индексу
+            updateBasketBtnDisplay(myOrder.length);  // удаляем позиции из корзины в header
         }
         updateOrderTotalValue();
     });
@@ -257,8 +247,8 @@ function createBasketOrder(item) {
         if (orderItemAmount.value < 50) {
             orderItemAmount.value++;
             myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;
-            console.log(myOrder);
             updateTotalPrice();
+            console.log(myOrder);
         } else {
             alert('You can order no more than 50 items!');
         }
@@ -267,7 +257,7 @@ function createBasketOrder(item) {
 
     const orderItemTotalPrice = document.createElement('p');
     orderItemTotalPrice.classList.add('order-item__total-price');
-    orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`
+    orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`;
   
     // функция для подсчета итоговой стоимости позиции
     function updateTotalPrice() {
@@ -291,9 +281,7 @@ function createBasketOrder(item) {
     orderItemContainer.appendChild(orderTotalValue);
 
     updateOrderTotalValue();
-    
-    console.log(orderItemContainer)
-    console.table(myOrder);
+
 }
 
 mainMenu.appendChild(orderItemContainer);
@@ -309,3 +297,4 @@ function changeItemBasketStyle(itemBasket) {
     itemBasket.style.transform = 'scale(1.1)';
     itemBasket.style.filter = 'drop-shadow(0px 0px 3px#ffffff)';
 }
+

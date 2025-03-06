@@ -163,6 +163,7 @@ body {
     font-weight: 700;
     font-size: 20px;
     color: #292828;
+    cursor: pointer;
 }
 
 input[type=number]::-webkit-inner-spin-button,
