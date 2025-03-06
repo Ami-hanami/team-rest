@@ -69,7 +69,14 @@ function createHeader() {
     burgermenu.addEventListener("click", () => {
       const ul = header.querySelector("ul");
       ul.classList.toggle("active");
+      burgermenu.classList.toggle("active"); // Добавляем класс
+      if (ul.classList.contains("active")) {
+        burgermenu.innerHTML = "&#10006;"; // Крестик
+      } else {
+        burgermenu.innerHTML = "&#9776;"; // Бургер
+      }
     });
+
 
     document.body.prepend(header);
 
