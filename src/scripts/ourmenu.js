@@ -116,7 +116,9 @@ myMenu.forEach((item, index) => {
             itemBasketBtn.style.backgroundColor = 'rgba(136, 9, 9, 0.87)';
             changeItemBasketStyle(itemBasket);
             addMyOrderItem(item.name, itemAmountValue, item.price);
+            
         }
+        itemAmountValue = 0;
     });
 
     itemBasketBtn.appendChild(itemBasket);
@@ -142,7 +144,6 @@ function createItemAmount() {
     itemAmount.classList.add('price-block__amount');
     itemAmount.setAttribute('type', 'number');
     itemAmount.setAttribute('value', '0');
-    itemAmount.setAttribute('max', '50'); // не работает ??
     itemAmount.setAttribute('onkeydown', 'return false');
     return itemAmount;
 }
@@ -173,14 +174,52 @@ function Order (name, value, price) {
     this.price = price;
 }
 
+// function addMyOrderItem(name, value, price) {
+//     const orderItem = new Order(name, value, price);
+//     myOrder.push(orderItem);
+//     createBasketOrder(orderItem);
+//     updateBasketBtnDisplay(myOrder.length); // добавляем позиции в корзину в header
+//     // updateOrderTotalValue();
+//     console.table(myOrder);
+// }
+
 function addMyOrderItem(name, value, price) {
     const orderItem = new Order(name, value, price);
-    myOrder.push(orderItem);
-    createBasketOrder(orderItem);
+    const uniqueOrderItem = myOrder.find(orderItem => orderItem.name === name);
+    if (uniqueOrderItem) {
+        uniqueOrderItem.value = +uniqueOrderItem.value + +value;
+        upadetOrderItemValue(uniqueOrderItem);
+    }
+    else {
+        myOrder.push(orderItem);
+        createBasketOrder(orderItem);
+    }
     updateBasketBtnDisplay(myOrder.length); // добавляем позиции в корзину в header
     // updateOrderTotalValue();
     console.table(myOrder);
 }
+
+function upadetOrderItemValue(uniqueOrderItem) {
+    const orderItems = document.querySelectorAll('.order-item');
+    const index = myOrder.indexOf(uniqueOrderItem);
+
+    const orderItemAmount = orderItems[index].querySelector('.order-item__amount');
+    const orderItemTotalPrice = orderItems[index].querySelector('.order-item__total-price');
+    
+    if (uniqueOrderItem.value <= 50) {
+        orderItemAmount.value = uniqueOrderItem.value;
+        orderItemTotalPrice.textContent = `$${(+uniqueOrderItem.price.slice(1) * uniqueOrderItem.value).toFixed(2)}`;
+        updateOrderTotalValue();
+    }
+    else if (uniqueOrderItem.value > 50) {
+        alert('Youjkk');
+    
+    }
+        
+
+}
+
+
 
 
 const orderItemContainer = document.createElement('div');  // контейнер для заказа
