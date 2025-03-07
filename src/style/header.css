@@ -96,19 +96,23 @@ a {
     transform: rotate(-180deg);
 }
 
+/* кнопка корзины */
 .basket-btn__header {
     border: none;
     background-color: transparent;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
 }
 
 .toggle-basketBtn {
     position: absolute;
-    color: #ff0000;
-    font-size: 26px;
+    color: #ffaa00;
+    font-size: 30px !important;
     font-weight: 600;
-    left: 32px;
-    top: 38px;
+    left: 55px;
     text-shadow: 0px 0px 20px #f48686;
 }
 
@@ -127,9 +131,11 @@ a {
     height: auto;
     }
     .toggle-basketBtn {
-        font-size: 20px;
-        left: 23px;
-        top: 25px;
+        font-size: 24px !important;
+        left: 40px;
+    }
+    .basket-btn__header {
+        margin-right: 20px;
     }
     .search {
         width: 22px;
@@ -160,10 +166,15 @@ a {
     .nav-list.active {
         overflow-x: hidden;
         display: flex;
+        z-index: 1;
     }
-   .list-item {
-    font-size: 22px;
-}
+    .toggle-basketBtn {
+        font-size: 24px !important;
+        left: 40px;
+    }
+    .basket-btn__header {
+        margin-right: 20px;
+    }
     .nav-list li {
         margin: 10px 0;
     }
@@ -173,11 +184,7 @@ a {
     .cart {
         margin-right: 50px;
     }
-    .toggle-basketBtn {
-        font-size: 22px;
-        left: 20px;
-        top: 20px;
-    }
+
     .search {
         display: none;
     }
@@ -205,6 +212,13 @@ a {
         gap: 30px;
         margin: 0;
     }
+    .toggle-basketBtn {
+        font-size: 24px !important;
+        left: 40px;
+    }
+    /* .basket-btn__header {
+        margin-right: 20px;
+    } */
 
     .nav-list li {
         margin: 0;

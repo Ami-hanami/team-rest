@@ -5,15 +5,15 @@ import createHeader, { updateBasketBtnDisplay } from './header.js';
 const myMenu = [];
 const myOrder = [];
 
-function basketBtnClick() {
+export function basketBtnClick() {
     if (myOrder.length > 0) {
         orderItemContainer.classList.toggle('active'); 
     }
     else
-    alert('Add some positions to your order!')
+    alert('Add some positions to your order!');
 }
 
-createHeader(basketBtnClick)
+createHeader(basketBtnClick);
 
 const mainMenu = document.createElement('main');
 mainMenu.classList.add('main-ourmenu');
@@ -181,7 +181,7 @@ function addMyOrderItem(name, value, price) {
         createBasketOrder(orderItem);
     }
     updateBasketBtnDisplay(myOrder.length); // добавляем позиции в корзину в header
-    // updateOrderTotalValue();
+    saveToLocalStorage();
     console.table(myOrder);
 }
 
@@ -218,6 +218,7 @@ cleanBasketBtn.textContent = 'Clean';
 
 cleanBasketBtn.addEventListener('click', () => {
     myOrder.length = 0;  
+    localStorage.removeItem('myOrder');
     document.querySelector('.order-item-container').innerHTML = 'Your order:';  // удаляем содержимое контейнера из DOM
     orderItemContainer.classList.toggle('active'); 
     updateBasketBtnDisplay(0); 
@@ -266,12 +267,14 @@ function createBasketOrder(item) {
             orderItemAmount.value--;
             myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;  // обновляем значение количества в массиве
             updateTotalPrice();
+            saveToLocalStorage();
             console.log(myOrder);
         }
         else {
             orderItem.remove();
             myOrder.splice(myOrder.indexOf(item), 1); // удаляем позицую из массива по индексу
             updateBasketBtnDisplay(myOrder.length);  // удаляем позиции из корзины в header
+            saveToLocalStorage();
         }
         updateOrderTotalValue();
     });
@@ -281,6 +284,7 @@ function createBasketOrder(item) {
             orderItemAmount.value++;
             myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;
             updateTotalPrice();
+            saveToLocalStorage();
             console.log(myOrder);
         } else {
             alert('You can order no more than 50 serivngs of the same dish!');
@@ -331,3 +335,12 @@ function changeItemBasketStyle(itemBasket) {
     itemBasket.style.filter = 'drop-shadow(0px 0px 3px#ffffff)';
 }
 
+function saveToLocalStorage() {
+    localStorage.setItem('myOrder', JSON.stringify(myOrder));
+}
+
+function loadLocalStorage() {
+    JSON.parse(localStorage.getItem('myOrder'));
+}
+
+loadLocalStorage();
