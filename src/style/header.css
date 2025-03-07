@@ -12,13 +12,12 @@ header {
     width: 100%;
     height: 128px;
     font-size: 18px;
-    padding: 0 130px;
+    padding: 0 100px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 20px 1px 30px rgba(113, 113, 113, 0.2);
 }
-
 .nav-list {
     display: flex;
     justify-content: center;
@@ -31,6 +30,7 @@ header {
 }
 .list-item {
     transition: 0.3s all;
+    font-size: 14px;
 }
 .list-item:hover {
     color: orange;
@@ -44,30 +44,33 @@ header {
     font-weight: 700;
 }
 .member-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     background-color: orange;
 
 }
 .cart {
-    width: 40px;
-    height: auto;
+    width: 25px;
+    max-height: 40px    ;
     filter: invert(100%) brightness(100%);
     cursor: pointer;
     transition: 0.5s all;
 }
 .cart:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .search {
+    width: 22px;
+    max-height: 40px;
     cursor: pointer;
     transition: 0.5s all;
 }
 .search:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 .service-container {
     display: flex;
     gap: 30px;
+    align-items: center;
 }
 .list-item {
     color: white;
@@ -86,8 +89,14 @@ a {
     right: 20px;
     z-index: 1000;
     display: none;
+    transition: transform 0.7s;
+    opacity: 1;
+}
+.burgermenu.active {
+    transform: rotate(-180deg);
 }
 
+/* кнопка корзины */
 .basket-btn__header {
     border: none;
     background-color: transparent;
@@ -95,8 +104,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-right: 30px;
-    /* width: 50px; */
+    margin-right: 20px;
 }
 
 .toggle-basketBtn {
@@ -105,14 +113,13 @@ a {
     font-size: 30px !important;
     font-weight: 600;
     left: 55px;
-    /* top: 38px; */
     text-shadow: 0px 0px 20px #f48686;
 }
 
 
 @media (max-width: 1150px) {
     header {
-        padding: 0 60px;
+        padding: 0 30px;
         font-size: 15px;
     }
     .logo {
@@ -127,7 +134,9 @@ a {
         font-size: 24px !important;
         left: 40px;
     }
-    
+    .basket-btn__header {
+        margin-right: 20px;
+    }
     .search {
         width: 22px;
         height: auto;
@@ -136,7 +145,6 @@ a {
         padding: 13px 10px;
         font-size: 12px;
     }
-    
 }
 @media (max-width: 788px) {
     .burgermenu {
@@ -152,8 +160,11 @@ a {
         width: 100%;
         height: 100%;
         text-align: center;
+        z-index: 10;
+        overflow-x: hidden;
     }
     .nav-list.active {
+        overflow-x: hidden;
         display: flex;
         z-index: 1;
     }
@@ -165,7 +176,7 @@ a {
         margin-right: 20px;
     }
     .nav-list li {
-        margin: 20px 0;
+        margin: 10px 0;
     }
     .member-btn {
         display: none;
@@ -179,11 +190,15 @@ a {
     }
     header {
     font-size: 13px;
-    padding: 0 30px;
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 20px 1px 30px rgba(113, 113, 113, 0.2);
+    }
+    .basket-btn__header {
+        display: flex;
+        align-items: center;
     }
 }
 @media (min-width: 789px) {
@@ -197,7 +212,13 @@ a {
         gap: 30px;
         margin: 0;
     }
-
+    .toggle-basketBtn {
+        font-size: 24px !important;
+        left: 40px;
+    }
+    /* .basket-btn__header {
+        margin-right: 20px;
+    } */
 
     .nav-list li {
         margin: 0;

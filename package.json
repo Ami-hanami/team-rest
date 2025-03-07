@@ -1,12 +1,15 @@
 {
+
   "name": "team-rest",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "webpack"
-  },
+  "start": "webpack serve --open",
+  "build": "webpack",
+  "deploy": "gh-pages -d dist"
+},
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shelter228/team-rest.git"
@@ -17,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/Shelter228/team-rest/issues"
   },
-  "homepage": "https://github.com/Shelter228/team-rest#readme",
+  "homepage": "https://Shelter228.github.io/team-rest",
   "devDependencies": {
     "@babel/core": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
@@ -25,6 +28,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.6.3",
     "mini-css-extract-plugin": "^2.9.2",
     "style-loader": "^4.0.0",

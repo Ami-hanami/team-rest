@@ -10,10 +10,14 @@ body, html {
     background-color: #000;
     height: 100vh;
     overflow: hidden;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 2), rgba(0, 0, 0, 0) 90%), url(../icons/burgerback.png);
+    background-size: cover;
+    background-position: center center;
 }
 
 
-.burger-container {
+
+/* .burger-container {
     position: absolute;
    top: 150px;
     right: -50%;
@@ -36,7 +40,7 @@ body, html {
     background: linear-gradient(
         to bottom,
         black 0%, 
-        rgba(0, 0, 0, 0.8) 10%, 
+        rgba(0, 0, 0, 0.8) 10%,
         rgba(0, 0, 0, 0) 50%, 
         rgba(0, 0, 0, 0.4) 90%, 
         black 100%
@@ -51,7 +55,7 @@ body, html {
         black 100%
     );
     z-index: 2;
-}
+} */
 
 
 @keyframes fadeIn {
@@ -76,10 +80,12 @@ body, html {
 }
 
 .h1 {
-    font-size: 55px;
+    font-size: 66px;
     color: rgba(255, 255, 255, 0.9);
-    max-width: 700px;
+    max-width: 850px;
     letter-spacing: 3px;
+    line-height: 90px;
+    font-weight: 800;
 }
 
 .p {
@@ -88,6 +94,7 @@ body, html {
     max-width: 600px;
     letter-spacing: 2px;
     line-height: 1.5;
+    margin: 0 0 30px 0;
 }
 
 
@@ -99,31 +106,23 @@ body, html {
     transition: 0.5s all;
     cursor: pointer;
     font-weight: 700;
-    background-color: transparent;
-    border: 2px solid #ff8c42;
-    color: #ff8c42;
-    text-shadow: 0 0 10px #ff8c42, 0 0 20px #ff8c42;
-    box-shadow: 0 0 10px #ff8c42, 0 0 20px #ff8c42;
+    border: 2px solid #000000;
+    color: #000000;
+    background: linear-gradient(135deg, #ffffff, #e0e0e0, #b0b0b0);
+    letter-spacing: 2px;
 }
 
 .button:hover {
-    transform: scale(1.05);
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: none;
-    box-shadow: 0 0 20px #ff8c42, 0 0 40px #ff8c42;
+    transform: scale(1.1);
 }
-
-
 .container {
     display: flex;
     flex-direction: column;
-    gap: 50px;
-    padding: 100px 120px;
+    gap: 20px;
+    padding: 50px 0 200px 100px;
     position: relative;
     opacity: 0;
     animation: fadeIn 2s forwards;
-    z-index: 2;
-    max-width: 55%;
 }
 
 @keyframes fadeIn {
@@ -228,98 +227,49 @@ input::placeholder {
         transform: translateY(0);
     }
 }
-
-
-
-
-
-
-@media (max-width: 1024px) {
-    .container {
-        max-width: 70%;
-        padding: 80px 20px;
-    }
-
+@media (max-width: 1504px) {
     .h1 {
-        font-size: calc(32px + 2vw);
-        max-width: 90%;
+        font-size: 45px;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 550px;
+        letter-spacing: 3px;
+        line-height: 70px;
+        font-weight: 800;
     }
-
     .p {
-        font-size: calc(16px + 0.5vw);
-        max-width: 90%;
+        font-size: 17px;
     }
-
-    .burger-container {
-        width: 60%;
-        height: 70vh;
-    }
-
-    .button {
-        max-width: 180px;
-        height: 60px;
-        font-size: 16px;
+    .container {
+        padding: 50px 0 150px 90px;
     }
 }
-
-
-@media (max-width: 768px) {
+@media (max-width: 1151px) {
     .container {
-        max-width: 80%;
-        padding: 60px 15px;
-    }
-
-    .h1 {
-        font-size: calc(24px + 2vw);
-        max-width: 100%;
-    }
-
-    .p {
-        font-size: calc(14px + 0.5vw);
-        max-width: 100%;
-    }
-
-    .burger-container {
-        width: 80%;
-        height: 60vh;
-        top: 150px;
-    }
-    
-    .button {
-        max-width: 160px;
-        height: 50px;
-        font-size: 14px;
+        padding: 30px 0 150px 30px;
     }
 }
-
-
-@media (max-width: 480px) {
-    .container {
-        max-width: 90%;
-        padding: 40px 10px;
-    }
-
+@media (max-width: 788px) {
     .h1 {
-        font-size: calc(20px + 2vw);
+        font-size: 30px;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 350px;
+        letter-spacing: 3px;
+        line-height: 50px;
+        font-weight: 800;
     }
-
     .p {
-        font-size: calc(12px + 0.5vw);
+        font-size: 17px;
+        max-width: 400px;
+        margin: 0;
     }
-
-    .burger-container {
-        width: 90%;
-        height: 50vh;
-        top: 120px;
+    .container {
+        padding: 20px 0 150px 15px;
     }
-
     .button {
-        max-width: 140px;
-        height: 40px;
-        font-size: 12px;
-        border-radius: 30px;
+            max-width: 130px;
+            height: 50px;
+            font-size: 14px;
+            border-radius: 20px;
+            margin: 0 15px 0 0;
     }
 }
-
-
-
