@@ -1,14 +1,19 @@
-
-
-import createHeader from './header.js';
-createHeader();
-
-
 import "../style/ourmenu.css";
 
+import createHeader, { updateBasketBtnDisplay } from './header.js';
 
 const myMenu = [];
 const myOrder = [];
+
+function basketBtnClick() {
+    if (myOrder.length > 0) {
+        orderItemContainer.classList.toggle('active'); 
+    }
+    else
+    alert('Add some positions to your order!')
+}
+
+createHeader(basketBtnClick)
 
 const mainMenu = document.createElement('main');
 mainMenu.classList.add('main-ourmenu');
@@ -34,6 +39,9 @@ const menu5 = new Menu('3 Layer Burger', 'Three juicy beef patties, fresh veggie
 const menu6 = new Menu('Sandwich', 'Fresh bread filled with your choice of meats, cheese, veggies, and tasty condiments.', '$2.80');
 
 myMenu.push(menu1, menu2, menu3, menu4, menu5, menu6);
+
+
+// создаем карточки меню 
 
 myMenu.forEach((item, index) => {
     const menuItem = document.createElement('div');
@@ -63,50 +71,56 @@ myMenu.forEach((item, index) => {
     const itemAmountContainer = document.createElement('div');
     itemAmountContainer.classList.add('price-block__amount-container');
 
-    const itemAmount = document.createElement('input');
-    itemAmount.classList.add('price-block__amount');
-    itemAmount.setAttribute('type', 'number');
-    itemAmount.setAttribute('value', '0');
-    itemAmount.setAttribute('onkeydown', 'return false');
+    const itemAmount = createItemAmount();
+    const itemAmountDecrease = createItemAmountDecrease(itemAmount);
+    const itemAmountIncrease = createItemAmountIncrease(itemAmount);
 
-    const itemAmountDecrease = document.createElement('button');
-    itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
-    itemAmountDecrease.textContent = '-';
+    const itemAmountBtns = document.createElement('div');
+    itemAmountBtns.classList.add('price-block__amount-btns');
+
+    itemAmountBtns.appendChild(itemAmountDecrease);
+    itemAmountBtns.appendChild(itemAmount);
+    itemAmountBtns.appendChild(itemAmountIncrease);
+
+    itemAmountContainer.appendChild(itemAmountBtns);
+
     itemAmountDecrease.addEventListener('click', () => {
         if (itemAmount.value > 0) {
             itemAmount.value--;
         }
     });
 
-    const itemAmountIncrease = document.createElement('button');
-    itemAmountIncrease.classList.add('price-block__amount-btn-increase');
-    itemAmountIncrease.textContent = '+';
     itemAmountIncrease.addEventListener('click', () => {
         itemAmount.value++;
+        if (itemAmount.value > 50) {
+            itemAmount.value = 50;
+            alert('You can order no more than 50 servings!');
+        }
     });
-
-    itemAmountContainer.appendChild(itemAmountDecrease);
-    itemAmountContainer.appendChild(itemAmount);
-    itemAmountContainer.appendChild(itemAmountIncrease);
 
     const itemBasketBtn = document.createElement('button');
     itemBasketBtn.classList.add('basket-btn');
 
-    itemBasketBtn.addEventListener('click', () => {
-        const itemAmountValue = itemAmount.value;
-        if (itemAmountValue > 0) {
-            addBasketItem(item.name, itemAmountValue, item.price);
-        }
-    });
-
     const itemBasket = document.createElement('img');
     itemBasket.classList.add('basket-icon');
     itemBasket.setAttribute('src', require('../icons/basket-btn.svg'));
+
+    itemBasketBtn.addEventListener('click', () => {
+        let itemAmountValue = itemAmount.value;
+        if (itemAmountValue > 0) {
+            itemBasketBtn.style.backgroundColor = 'rgba(136, 9, 9, 0.87)';
+            changeItemBasketStyle(itemBasket);
+            addMyOrderItem(item.name, itemAmountValue, item.price);
+            itemAmountValue = 0;
+        }
+        
+    });
+
     itemBasketBtn.appendChild(itemBasket);
+    itemAmountContainer.appendChild(itemBasketBtn);
 
     itemPriceBlock.appendChild(itemPrice);
     itemPriceBlock.appendChild(itemAmountContainer);
-    itemPriceBlock.appendChild(itemBasketBtn);
 
     menuItem.appendChild(itemImg);
     menuItem.appendChild(itemName);
@@ -120,43 +134,200 @@ function importImg(itemPosition) {
     return itemImgSrc;
 }
 
+function createItemAmount() {
+    const itemAmount = document.createElement('input');
+    itemAmount.classList.add('price-block__amount');
+    itemAmount.setAttribute('type', 'number');
+    itemAmount.setAttribute('value', '0');
+    itemAmount.setAttribute('onkeydown', 'return false');
+    return itemAmount;
+}
+
+function createItemAmountDecrease(itemAmount) {    
+    const itemAmountDecrease = document.createElement('button');
+    itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
+    itemAmountDecrease.textContent = '-';
+    return itemAmountDecrease;
+}
+
+function createItemAmountIncrease(itemAmount) {
+    const itemAmountIncrease = document.createElement('button');
+    itemAmountIncrease.classList.add('price-block__amount-btn-increase');
+    itemAmountIncrease.textContent = '+';
+    return itemAmountIncrease;
+}
+
 mainMenu.appendChild(h2Menu);
 mainMenu.appendChild(menuContainer);
 document.body.appendChild(mainMenu);
 
-function addBasketItem(name, value, price) {
+// создаем корзину и ее содержимое
+
+function Order (name, value, price) {
+    this.name = name;
+    this.value = value;
+    this.price = price;
+}
+
+function addMyOrderItem(name, value, price) {
+    const orderItem = new Order(name, value, price);
+    const uniqueOrderItem = myOrder.find(orderItem => orderItem.name === name);
+    if (uniqueOrderItem) {
+        uniqueOrderItem.value = +uniqueOrderItem.value + +value;
+        upadetOrderItemValue(uniqueOrderItem, value);
+    }
+    else {
+        myOrder.push(orderItem);
+        createBasketOrder(orderItem);
+    }
+    updateBasketBtnDisplay(myOrder.length); // добавляем позиции в корзину в header
+    // updateOrderTotalValue();
+    console.table(myOrder);
+}
+
+function upadetOrderItemValue(uniqueOrderItem, value) {
+    const orderItems = document.querySelectorAll('.order-item');
+    const index = myOrder.indexOf(uniqueOrderItem);
+
+    const orderItemAmount = orderItems[index].querySelector('.order-item__amount');
+    const orderItemTotalPrice = orderItems[index].querySelector('.order-item__total-price');
+    
+    if (uniqueOrderItem.value <= 50) {
+        orderItemAmount.value = uniqueOrderItem.value;
+        orderItemTotalPrice.textContent = `$${(+uniqueOrderItem.price.slice(1) * uniqueOrderItem.value).toFixed(2)}`;
+        updateOrderTotalValue();
+    }
+    else if (uniqueOrderItem.value > 50) {
+        alert('You can order no more than 50 servings of the same dish!');
+        uniqueOrderItem.value -= value;
+    }
+}
+
+// создаем корзину 
+
+const orderItemContainer = document.createElement('div');  // контейнер для заказа
+orderItemContainer.classList.add('order-item-container');
+orderItemContainer.textContent = 'Your order:';
+
+const orderTotalValue = document.createElement('div');
+orderTotalValue.classList.add('order-total-value');
+
+const cleanBasketBtn = document.createElement('button');  // кнопка очистки корзины
+cleanBasketBtn.classList.add('clean-basketBtn');
+cleanBasketBtn.textContent = 'Clean';
+
+cleanBasketBtn.addEventListener('click', () => {
+    myOrder.length = 0;  
+    document.querySelector('.order-item-container').innerHTML = 'Your order:';  // удаляем содержимое контейнера из DOM
+    orderItemContainer.classList.toggle('active'); 
+    updateBasketBtnDisplay(0); 
+});
+
+const orderTotalValueText = document.createElement('p');
+orderTotalValueText.classList.add('order-total-value__text');
+orderTotalValue.appendChild(cleanBasketBtn);
+orderTotalValue.appendChild(orderTotalValueText);
+
+// функция для создания карточек заказа в корзину
+
+function createBasketOrder(item) {
     const orderItem = document.createElement('div');
     orderItem.classList.add('order-item');
+
+    // const orderPosition = document.createElement('p');    // позиция в заказе ? нужна ли
+    // orderPosition.classList.add('order-item__position');
+    // orderPosition.textContent = `${myOrder.indexOf(item) + 1}.`;
 
     const orderItemBlock = document.createElement('div');
     orderItemBlock.classList.add('order-item__block');
 
     const orderItemName = document.createElement('p');
     orderItemName.classList.add('order-item__name');
-    orderItemName.textContent = name;
+    orderItemName.textContent = item.name;
 
     const orderItemPrice = document.createElement('p');
     orderItemPrice.classList.add('order-item__price');
-    orderItemPrice.textContent = price;
+    orderItemPrice.textContent = item.price;
 
     orderItemBlock.appendChild(orderItemName);
     orderItemBlock.appendChild(orderItemPrice);
 
-    const orderItemAmount = document.createElement('p');
-    orderItemAmount.classList.add('oder-item__amount');
-    orderItemAmount.textContent = value;
 
-    const orderItemRemove = document.createElement('button');
-    orderItemRemove.classList.add('order-item__remove');
-    orderItemRemove.textContent = 'Remove';
-    orderItemRemove.addEventListener('click', () => {
-        orderItem.remove();
+    const orderItemAmount = document.createElement('input');
+    orderItemAmount.classList.add('order-item__amount');
+    orderItemAmount.value = item.value;
+    console.log(orderItemAmount.value);
+
+    const orderItemDecrease = createItemAmountDecrease(orderItemAmount);
+    const orderItemIncrease = createItemAmountIncrease(orderItemAmount);
+
+    orderItemDecrease.addEventListener('click', () => {
+        if (orderItemAmount.value > 1) {
+            orderItemAmount.value--;
+            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;  // обновляем значение количества в массиве
+            updateTotalPrice();
+            console.log(myOrder);
+        }
+        else {
+            orderItem.remove();
+            myOrder.splice(myOrder.indexOf(item), 1); // удаляем позицую из массива по индексу
+            updateBasketBtnDisplay(myOrder.length);  // удаляем позиции из корзины в header
+        }
+        updateOrderTotalValue();
     });
 
-    orderItem.appendChild(orderItemBlock);
-    orderItem.appendChild(orderItemAmount);
-    orderItem.appendChild(orderItemRemove);
+    orderItemIncrease.addEventListener('click', () => {
+        if (orderItemAmount.value < 50) {
+            orderItemAmount.value++;
+            myOrder[myOrder.indexOf(item)].value = orderItemAmount.value;
+            updateTotalPrice();
+            console.log(myOrder);
+        } else {
+            alert('You can order no more than 50 serivngs of the same dish!');
+        }
+        updateOrderTotalValue();
+    });
 
-    // myOrder.push(orderItem);
-    // console.log(myOrder);
+    const orderItemTotalPrice = document.createElement('p');
+    orderItemTotalPrice.classList.add('order-item__total-price');
+    orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`;
+  
+    // функция для подсчета итоговой стоимости позиции
+    function updateTotalPrice() {
+        orderItemTotalPrice.textContent = `$${(+item.price.slice(1) * +orderItemAmount.value).toFixed(2)}`;
+    }
+
+    const orderItemTotalBlock = document.createElement('div');
+    orderItemTotalBlock.classList.add('order-item__total-block');
+    orderItemTotalBlock.appendChild(orderItemAmount);
+    orderItemTotalBlock.appendChild(orderItemTotalPrice);
+
+    const orderItemTotalContainer = document.createElement('div');
+    orderItemTotalContainer.classList.add('order-item__total-container');   
+    orderItemTotalContainer.appendChild(orderItemDecrease);
+    orderItemTotalContainer.appendChild(orderItemTotalBlock);   
+    orderItemTotalContainer.appendChild(orderItemIncrease);
+  
+    orderItem.appendChild(orderItemBlock);
+    orderItem.appendChild(orderItemTotalContainer);
+    orderItemContainer.appendChild(orderItem);
+    orderItemContainer.appendChild(orderTotalValue);
+
+    updateOrderTotalValue();
+
 }
+
+mainMenu.appendChild(orderItemContainer);
+
+ // функция для подсчета итоговой стоимости всего заказа
+function updateOrderTotalValue() {  
+    let totalValue = myOrder.reduce((sum, item) => sum + (+item.price.slice(1) * item.value), 0);
+    orderTotalValueText.textContent = `Total: $${totalValue.toFixed(2)}`;
+}
+
+// меняет стиль иконки после нажатия на кнопку
+function changeItemBasketStyle(itemBasket) {
+    itemBasket.style.transform = 'scale(1.1)';
+    itemBasket.style.filter = 'drop-shadow(0px 0px 3px#ffffff)';
+}
+

@@ -72,15 +72,15 @@ body {
 }
 
 @keyframes slideDown {
-    from {
-      transform: translateY(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
   }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 .restaurants-container {
   display: flex;
@@ -145,19 +145,19 @@ iframe {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 0; 
-  animation: fadeIn 1.2s ease-in-out forwards; 
-  animation-delay: 0.5s; 
+  opacity: 0;
+  animation: fadeIn 1.2s ease-in-out forwards;
+  animation-delay: 0.5s;
 }
 
 @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
 
 .contacts-container {
   display: flex;
@@ -251,21 +251,21 @@ span:hover {
   border: 1px solid var(--color-orange);
   box-shadow: 0px 0px 30px var(--color-shadow);
   opacity: 0;
-  transform: scale(0.8); 
-  transition: opacity 0.3s ease, transform 0.3s ease; 
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* анимация появления */
 .modal-adresses.show .modal-adresses-content {
-    opacity: 1; 
-    transform: scale(1); 
-  }
-  
-  /* анимация закрытия */
-  .modal-adresses.hide .modal-adresses-content {
-    opacity: 0;
-    transform: scale(0.8); 
-  }
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* анимация закрытия */
+.modal-adresses.hide .modal-adresses-content {
+  opacity: 0;
+  transform: scale(0.8);
+}
 
 .modal-adresses-content h3 {
   font-size: 26px;
@@ -339,22 +339,22 @@ span:hover {
   flex-direction: row;
   align-items: center;
   gap: 20px;
-  opacity: 0; 
-  transform: scale(0.8); 
+  opacity: 0;
+  transform: scale(0.8);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* анимация появления */
 .info-modal.show .info-content {
-    opacity: 1; 
-    transform: scale(1); 
-  }
-  
-  /* нимация закрытия */
-  .info-modal.hide .info-content {
-    opacity: 0; 
-    transform: scale(0.8); 
-  }
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* нимация закрытия */
+.info-modal.hide .info-content {
+  opacity: 0;
+  transform: scale(0.8);
+}
 
 .details {
   flex: 1;
