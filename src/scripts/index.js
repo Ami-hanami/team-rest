@@ -8,7 +8,7 @@ const container = document.createElement("div");
 container.classList.add("container");
 
 const h1 = document.createElement("h1");
-h1.textContent = "Welcome! We Made Delicious Food for You";
+h1.textContent = "Welcome!\nWe Made Delicious Food for You";
 container.appendChild(h1);
 h1.classList.add("h1");
 
