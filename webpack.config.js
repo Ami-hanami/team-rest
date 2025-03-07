@@ -13,8 +13,10 @@ module.exports = {
     filename: 'scripts/[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: './',
+    publicPath: '/team-rest/',  // Укажи имя репозитория GitHub в этом пути
   },
+  
+  
   module: {
     rules: [
       {
