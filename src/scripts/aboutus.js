@@ -27,7 +27,7 @@ paragraph2.textContent = 'finest ingredients and creative techniques to delight 
 paragraph2.classList.add("mini-p");
 paragraph2.classList.add("mini-p2");
 
-// Основной блок с текстом
+
 const maintext = document.createElement("div");
 maintext.classList.add("maintext");
 
@@ -40,37 +40,37 @@ moretext.textContent =
 const videoContainer = document.createElement("div");
 videoContainer.classList.add("video-container");
 
-// Создаем ссылку для перехода на YouTube
+// Создал ссылку для перехода на YouTube
 const videoLink = document.createElement('a');
-videoLink.setAttribute('href', 'https://www.youtube.com/watch?v=YOUR_VIDEO_ID'); // Замените на ID вашего видео
-videoLink.setAttribute('target', '_blank'); // Открыть в новой вкладке
+videoLink.setAttribute('href', 'https://youtu.be/0AsSmJ_Ex30?si=ueDHQ2nlzCylNDJr');
+videoLink.setAttribute('target', '_blank');
 
-// Картинка для видео
+
 const video = document.createElement("img");
 video.classList.add("video");
 video.setAttribute("alt", "video");
-video.setAttribute("src", videoplay); // Заглушка видео
+video.setAttribute("src", videoplay);
 
 // Кнопка воспроизведения
 const playButton = document.createElement("div");
 playButton.classList.add("playbutton");
 
-// Стилизуем кнопку воспроизведения
+
 playButton.addEventListener("click", () => {
-    window.open("https://youtu.be/hvL1339luv0?si=E1whz558B3t9W3oW", "_blank"); // Переход на видео
+    window.open("https://youtu.be/0AsSmJ_Ex30?si=ueDHQ2nlzCylNDJr");
 });
 
-// Вставляем картинку видео в ссылку
+
 videoLink.appendChild(video);
 
-// Добавляем видео и кнопку в контейнер
+
 videoContainer.appendChild(videoLink);
 videoContainer.appendChild(playButton);
 
-// Добавляем контейнер видео в основной блок
+
 maintext.appendChild(videoContainer);
 
-// Добавляем всё в тело документа
+
 document.body.appendChild(maincontainer);
 maincontainer.appendChild(maintitle);
 maincontainer.appendChild(maintext);

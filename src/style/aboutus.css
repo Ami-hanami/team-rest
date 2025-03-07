@@ -10,7 +10,7 @@ body {
 }
 
 .maincontainer {
-    padding: 60px  0 30px 0; /* Уменьшены отступы */
+    padding: 60px  0 30px 0;
 }
 
 .maintitle {
@@ -33,13 +33,14 @@ body {
 }
 
 .moretext {
-    margin: 40px 0; /* Уменьшен отступ сверху и снизу */
+    margin: 40px 0;
     color: rgb(232, 232, 232);
     font-size: 24px;
     max-width: 530px;
     line-height: 30px;
     animation: slide-in-r 2s;
 }
+
 @keyframes slide-in-r {
     from {
       transform: translateX(50vw);
@@ -49,7 +50,7 @@ body {
       transform: translateX();
       opacity: 1;
     }
-  }
+}
 
 .maintext {
     display: flex;
@@ -69,30 +70,24 @@ body {
       transform: translateX(0);
       opacity: 1;
     }
-  }
-  
-  .video {
-    /* position: absolute; */
-    /* left: 50%; */
+}
+
+.video {
     animation: slide-in 2s;
     width: 670px;
     height: 490px;
     border-radius: 10px;
-  }
-  
-  
-.video-container {
-    position: relative; /* Родительский контейнер для видео */
-    width: 100%;
-    max-width: 500px; /* Максимальная ширина контейнера */
-    height: 300px; /* Фиксированная высота для контейнера */
-    display: flex; /* Используем flexbox */
-    justify-content: center; /* Горизонтальное выравнивание */
-    align-items: center; /* Вертикальное выравнивание */
 }
 
-
-
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 @keyframes fade-in {
     from {
@@ -101,39 +96,39 @@ body {
     to {
       opacity: 1;
     }
-  }
-  .playbutton {
+}
+
+.playbutton {
     opacity: 0;
-    animation: fade-in 1s ease-in-out 2.3s forwards; /* 3s задержка перед началом анимации */
+    animation: fade-in 1s ease-in-out 2.3s forwards;
     transition: all 0.3s;
     position: absolute;
-    top: 50%; /* Центрируем по вертикали */
-    left: 50%; /* Центрируем по горизонтали */
-    transform: translate(-50%, -50%); /* Перемещаем кнопку в центр */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 80px;
     height: 80px;
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачная кнопка */
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     display: flex;
-    align-items: center; /* Центрируем иконку внутри кнопки */
-    justify-content: center; /* Центрируем иконку внутри кнопки */
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-  }
-  
+}
 
 .playbutton::before {
     content: "";
     width: 0;
     height: 0;
-    border-left: 25px solid white; /* Белый треугольник */
+    border-left: 25px solid white;
     border-top: 15px solid transparent;
     border-bottom: 15px solid transparent;
     margin: 0 0 0 6px;
 }
+
 .playbutton:hover {
     background-color: #2d2d2d;
 }
-/* адапт йоу, это адапт йоу */
 
 @media (max-width: 1350px) {
     .maintext {
@@ -142,38 +137,55 @@ body {
     }
 
     .video {
-        width: 500px; /* Видео будет занимать всю ширину контейнера */
-        height: 350px; /* Видео будет занимать всю высоту контейнера */
+        width: 500px;
+        height: 350px;
         border-radius: 10px;
     }
+
     .moretext {
         font-size: 16px;
     }
+    .playbutton {
+        width: 60px;
+        height: 60px;
+    }
+    .playbutton::before {
+        border-left: 15px solid white;
+        border-top: 10px solid transparent;
+        border-bottom: 8px solid transparent;
+    }
 }
+
 @media (max-width: 1135px) {
     .maintext {
         padding: 80px 0;
         flex-direction: column;
     }
+
     .video {
-        width: 620px; /* Видео будет занимать всю ширину контейнера */
-        height: 400px; /* Видео будет занимать всю высоту контейнера */
+        width: 620px;
+        height: 400px;
     }
+
     .moretext {
         max-width: 900px;
     }
+
     .maincontainer {
-        padding: 60px 30px; /* Уменьшены отступы */
+        padding: 60px 30px;
     }
+
     .title {
         font-size: 45px;
     }
+
     .mini-p {
         font-size: 13px;
         text-align: center;
         letter-spacing: 0.2px;
     }
 }
+
 @media (max-width: 770px) {
     .mini-p {
         font-size: 16px;
@@ -182,22 +194,29 @@ body {
         line-height: 20px;
         gap: 0;
     }
+
     .mini-p1 {
         max-width: 470px;
     }
+
     .mini-p2 {
         max-width: 290px;
     }
+
     .maintext {
         padding: 80px 30px 0 30px
     }
+
     .title {
         font-size: 35px;
     }
+
     .video {
-            width: 520px; /* Видео будет занимать всю ширину контейнера */
-            height: auto; /* Видео будет занимать всю высоту контейнера */
-}}
+        width: 520px;
+        height: auto;
+    }
+}
+
 @media (max-width: 560px) {
     .mini-p {
         font-size: 12px;
@@ -206,50 +225,63 @@ body {
         line-height: 20px;
         gap: 0;
     }
+
     .mini-p1 {
         max-width: 470px;
     }
+
     .mini-p2 {
         max-width: 290px;
     }
+
     .maintext {
         padding: 30px 10px 0 10px;
         gap: 0px;
     }
+
     .title {
         font-size: 25px;
     }
+
     .maincontainer {
         padding: 60px 0;
     }
+
     .moretext {
         margin: 5px 0;
         font-size: 13px;
     }
+
     .video {
-            width: 380px; /* Видео будет занимать всю ширину контейнера */
-            height: 260px; /* Видео будет занимать всю высоту контейнера */
-}}
-@media (max-width: 380px) {
-    .video {
-        width: 310px; /* Видео будет занимать всю ширину контейнера */
-        height: 230px; /* Видео будет занимать всю высоту контейнера */
+        width: 380px;
+        height: 260px;
     }
-.moretext {
-    padding: 10px;
-    line-height: 23px;
-}
-.title {
-    font-size: 20px;
-}
-.mini-p {
-    font-size: 10px;
-}
-.maintext {
-    padding: 0 0;
-}
-.video-container {
-    height: 250px;
 }
 
+@media (max-width: 380px) {
+    .video {
+        width: 310px;
+        height: 230px;
+    }
+
+    .moretext {
+        padding: 10px;
+        line-height: 23px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .mini-p {
+        font-size: 10px;
+    }
+
+    .maintext {
+        padding: 0 0;
+    }
+
+    .video-container {
+        height: 250px;
+    }
 }

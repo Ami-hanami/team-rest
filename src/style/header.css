@@ -18,7 +18,6 @@ header {
     align-items: center;
     box-shadow: 20px 1px 30px rgba(113, 113, 113, 0.2);
 }
-
 .nav-list {
     display: flex;
     justify-content: center;
@@ -50,7 +49,6 @@ header {
 
 }
 .cart {
-    margin: 4px 0 0 0 ;
     width: 25px;
     max-height: 40px    ;
     filter: invert(100%) brightness(100%);
@@ -61,7 +59,6 @@ header {
     transform: scale(1.1);
 }
 .search {
-    margin: 4px 0 0 0 ;
     width: 22px;
     max-height: 40px;
     cursor: pointer;
@@ -73,6 +70,7 @@ header {
 .service-container {
     display: flex;
     gap: 30px;
+    align-items: center;
 }
 .list-item {
     color: white;
@@ -91,7 +89,7 @@ a {
     right: 20px;
     z-index: 1000;
     display: none;
-    transition: transform 0.3s;
+    transition: transform 0.7s;
     opacity: 1;
 }
 .burgermenu.active {
@@ -157,11 +155,15 @@ a {
         height: 100%;
         text-align: center;
         z-index: 10;
+        overflow-x: hidden;
     }
     .nav-list.active {
+        overflow-x: hidden;
         display: flex;
     }
-
+   .list-item {
+    font-size: 22px;
+}
     .nav-list li {
         margin: 10px 0;
     }
@@ -181,11 +183,15 @@ a {
     }
     header {
     font-size: 13px;
-    padding: 0 30px;
+    padding: 0 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 20px 1px 30px rgba(113, 113, 113, 0.2);
+    }
+    .basket-btn__header {
+        display: flex;
+        align-items: center;
     }
 }
 @media (min-width: 789px) {

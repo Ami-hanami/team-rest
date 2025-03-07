@@ -162,18 +162,17 @@ function createSocialIcons() {
     el.classList.add("typing");
     setTimeout(type, 500);
   }
-  
+
   // функция для добавления парящих картинок
   function addFloatingImages() {
     const floatingContainer = document.createElement("div");
     floatingContainer.classList.add("floating-images");
     document.body.appendChild(floatingContainer);
-  
     const images = [
       { src: burgerImage, class: "floating-1" },
       { src: friesImage, class: "floating-2" },
     ];
-  
+
     // добавляем картинки
     images.forEach((imgData) => {
       const img = document.createElement("img");

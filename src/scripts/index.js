@@ -1,6 +1,5 @@
 import '../style/index.css';
 import createHeader from './header.js';
-import burgerImageSrc from '../icons/burgerback.png';
 
 const header = createHeader();
 
@@ -8,13 +7,13 @@ const container = document.createElement("div");
 container.classList.add("container");
 
 const h1 = document.createElement("h1");
-h1.textContent = "Welcome! We Made Delicious Food for You";
+h1.innerHTML = "Welcome! <br> We Made Delicious Food for You";
 container.appendChild(h1);
 h1.classList.add("h1");
 
 const p = document.createElement("p");
 p.textContent =
-  "only we have the most delicious burgers and drinks and much more delicious things";
+  "Only we have the most delicious burgers and drinks and much more delicious things";
 container.appendChild(p);
 p.classList.add("p");
 
@@ -27,11 +26,11 @@ button.classList.add("button");
 const burgerContainer = document.createElement("div");
 burgerContainer.classList.add("burger-container");
 
-const burgerImage = document.createElement("img");
-burgerImage.src = burgerImageSrc;
-burgerImage.classList.add("burger-image");
+// const burgerImage = document.createElement("img");
+// burgerImage.src = burgerImageSrc;
+// burgerImage.classList.add("burger-image");
 
-burgerContainer.appendChild(burgerImage);
+// burgerContainer.appendChild(burgerImage);
 document.body.appendChild(burgerContainer);
 
 // модальное окно
