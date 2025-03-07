@@ -1,218 +1,483 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Doto:wght@100..900&family=Eater&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Tilt+Warp&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Vidaloka&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Doto:wght@100..900&family=Eater&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&family=Tilt+Warp&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Vidaloka&display=swap");
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
 }
 
 body {
-    background-color: black;
+  background-color: black;
 }
 
+:root {
+  --color-orange: #ff8a42af;
+  --color-sec: #222222b8;
+  --color-text: #fff;
+  --color-hover: #959595f9;
+  --color-shadow: rgba(248, 180, 0, 0.7);
+}
 
 .floating-images {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; 
-    z-index: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .floating {
-    position: absolute;
-    width: 80px; 
-    height: auto;
-    opacity: 0.6;
-    animation: floatAnimation 8s infinite ease-in-out;
+  position: absolute;
+  width: 80px;
+  height: auto;
+  opacity: 0.6;
+  animation: floatAnimation 8s infinite ease-in-out;
 }
 
 /* картинки по краям */
 .floating-1 {
-     top: 20%; 
-     left: 10%; 
-     animation-duration: 6s; 
-    }
-.floating-2 { 
-    top: 50%; 
-    left: 90%; 
-    animation-duration: 7s; 
+  top: 20%;
+  left: 10%;
+  animation-duration: 6s;
+}
+.floating-2 {
+  top: 50%;
+  left: 90%;
+  animation-duration: 7s;
 }
 
 @keyframes floatAnimation {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 /* блок ресторанов */
 .restaurants-section {
-    padding: 40px;
-    margin-top: 80px;
-    margin-bottom: 40px;
-    background-color: black;
-    text-align: center;
+  padding: 40px;
+  margin-top: 80px;
+  margin-bottom: 40px;
+  background-color: black;
+  text-align: center;
+  animation: slideDown 1.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .restaurants-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
-    margin: auto;
-    gap: 20px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
 .restaurants-text {
-    width: 45%;
-    text-align: left;
-    margin: 0 0 60px 0;
+  width: 45%;
+  text-align: left;
 }
 
 .restaurants-text h2 {
-    font-size: 26px;
-    color: #ff8a42af;
-    margin-bottom: 25px;
-    letter-spacing: 1px;
+  font-size: 26px;
+  color: var(--color-orange);
+  margin-bottom: 25px;
+  letter-spacing: 1px;
 }
 
 .restaurants-text p {
-    font-size: 18px;
-    color: white;
-    letter-spacing: 0.5px;
+  font-size: 18px;
+  color: var(--color-text);
+  letter-spacing: 0.5px;
 }
 
 iframe {
-    width: 100%;
-    max-width: 500px;
-    height: 300px;
-    border-radius: 15px;
-    animation: glowing 4s infinite alternate ease-in-out;
-    box-shadow: 0px 0px 40px rgba(248, 180, 0, 0.8);
-    transition: box-shadow 0.5s ease-in-out;
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  border-radius: 15px;
+  animation: glowing 4s infinite alternate ease-in-out;
+  box-shadow: 0px 0px 40px var(--color-shadow);
+  transition: box-shadow 0.5s ease-in-out;
 }
 
 @keyframes glowing {
-    0% { box-shadow: 0px 0px 30px rgba(248, 180, 0, 0.5); }
-    50% { box-shadow: 0px 0px 60px rgba(248, 180, 0, 1); }
-    100% { box-shadow: 0px 0px 30px rgba(248, 180, 0, 0.5); }
+  0% {
+    box-shadow: 0px 0px 30px rgba(248, 180, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0px 0px 60px rgba(248, 180, 0, 1);
+  }
+  100% {
+    box-shadow: 0px 0px 30px rgba(248, 180, 0, 0.5);
+  }
 }
-
 
 /* блок контактов */
 .contacts-section {
-    background-color: #222222b8;
-    color: #fff;
-    padding: 40px 40px 70px 40px;
-    text-align: center;
-    position: relative;
-    margin-top: 110px;
-    width: 100%;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  background-color: var(--color-sec);
+  color: var(--color-text);
+  padding: 40px 40px 150px 40px;
+  text-align: center;
+  position: relative;
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 1.2s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .contacts-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 100%;
-    /* margin: auto; */
-    gap: 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 70px;
+  padding: 0 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .contact-column {
-    text-align: left;
+  text-align: left;
+  flex: 1;
+  min-width: 250px;
+  max-width: none;
 }
 
 .contact-column h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #ff8a42af;
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--color-orange);
+  white-space: nowrap;
 }
 
 .contact-column ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
 }
 
-.contact-column li {
-    font-size: 18px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    transition: color 0.3s;
+li {
+  margin-bottom: 5px;
 }
 
-.contact-column li:hover {
-    color:  #959595f9;
+span {
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
+span:hover {
+  color: var(--color-hover);
+}
 
 .social-icons {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 5px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .social-icon {
-    width: 35px;
-    height: 35px;
-    transition: opacity 0.3s, transform 0.2s;
-    cursor: pointer;
+  width: 35px;
+  height: 35px;
+  transition: opacity 0.3s, transform 0.2s;
+  cursor: pointer;
 }
 
 .social-icon:hover {
-    transform: scale(1.1);
-    filter: brightness(0) saturate(100%) invert(55%) sepia(100%) saturate(600%) hue-rotate(10deg);
+  transform: scale(1.1);
+  filter: brightness(0) saturate(100%) invert(55%) sepia(100%) saturate(600%)
+    hue-rotate(10deg);
 }
 
+/* модальное окна с адресами */
+.modal-adresses {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-adresses-content {
+  background-color: #222222ce;
+  padding: 30px;
+  border-radius: 15px;
+  width: 600px;
+  min-height: 400px;
+  text-align: left;
+  position: relative;
+  border: 1px solid var(--color-orange);
+  box-shadow: 0px 0px 30px var(--color-shadow);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* анимация появления */
+.modal-adresses.show .modal-adresses-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* анимация закрытия */
+.modal-adresses.hide .modal-adresses-content {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.modal-adresses-content h3 {
+  font-size: 26px;
+  color: var(--color-orange);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-adresses-content ul {
+  list-style: none;
+  counter-reset: address-counter; /* cчетчик нумерации */
+}
+
+.modal-adresses-content li {
+  font-size: 20px;
+  color: var(--color-text);
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  counter-increment: address-counter; /* увелич счетчик */
+}
+
+.modal-adresses-content li::before {
+  content: counter(address-counter) ". "; /* добавляем нумерацию */
+  color: var(--color-orange);
+  margin-right: 8px;
+}
+
+.modal-adresses-content li:hover {
+  color: var(--color-orange);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: var(--color-orange);
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--color-text);
+}
+
+/* окно с информацией о ресторане */
+.info-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.info-content {
+  background-color: #222222ce;
+  padding: 30px;
+  border-radius: 15px;
+  width: 765px;
+  min-height: 400px;
+  text-align: center;
+  position: relative;
+  border: 1px solid var(--color-orange);
+  box-shadow: 0px 0px 30px var(--color-shadow);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* анимация появления */
+.info-modal.show .info-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* нимация закрытия */
+.info-modal.hide .info-content {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.details {
+  flex: 1;
+  text-align: center;
+}
+
+.restaurant-image {
+  width: 350px;
+  height: 350px;
+  margin-left: 20px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid var(--color-orange);
+}
+
+.info-content h3 {
+  font-size: 26px;
+  color: var(--color-orange);
+  margin-bottom: 25px;
+}
+
+.info-content p {
+  font-size: 18px;
+  color: var(--color-text);
+  margin-bottom: 5px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  color: var(--color-orange);
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: var(--color-text);
+}
+
+/* стрелка */
+.arrow-icon {
+  width: 35px;
+  height: 35px;
+  margin-left: 10px;
+  vertical-align: middle;
+  filter: brightness(0) saturate(100%) invert(55%) sepia(100%) saturate(600%)
+    hue-rotate(10deg);
+  animation: slide 1.5s infinite;
+}
+
+@keyframes slide {
+  0%,
+  100% {
+    transform: translateX(0) translateY(-6px);
+  }
+  50% {
+    transform: translateX(-10px) translateY(-7px);
+  }
+}
+
+@media (max-width: 1025px) {
+  .restaurants-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .restaurants-text {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 970px) {
+  .contacts-container {
+    max-width: 100%;
+    padding: 0 10px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-column {
+    min-width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+}
 
 @media (max-width: 768px) {
-    .restaurants-container {
-        flex-direction: column;
-        text-align: center;
-    }
+  .restaurants-container {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .restaurants-text {
-        width: 100%;
-        text-align: center;
-    }
+  .restaurants-text {
+    width: 100%;
+    text-align: center;
+  }
 
-    .contacts-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 20px;
-    }
+  .contacts-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
 
-    .contact-column {
-        text-align: center;
-    }
+  .contact-column {
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
-    .social-icons {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+  .social-icons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-    .social-icon {
-        width: 30px;
-        height: 30px;
-    }
+  .social-icon {
+    width: 30px;
+    height: 30px;
+  }
 
-    iframe {
-        height: 250px;
-    }
+  iframe {
+    height: 250px;
+  }
 }
