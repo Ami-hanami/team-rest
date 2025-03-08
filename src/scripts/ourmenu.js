@@ -113,6 +113,7 @@ myMenu.forEach((item, index) => {
             addMyOrderItem(item.name, itemAmountValue, item.price);
             itemAmountValue = 0;
         }
+        saveToLocalStorage();
         
     });
 
@@ -178,10 +179,10 @@ function addMyOrderItem(name, value, price) {
     }
     else {
         myOrder.push(orderItem);
+        saveToLocalStorage();
         createBasketOrder(orderItem);
     }
     updateBasketBtnDisplay(myOrder.length); // добавляем позиции в корзину в header
-    saveToLocalStorage();
     console.table(myOrder);
 }
 
@@ -218,7 +219,7 @@ cleanBasketBtn.textContent = 'Clean';
 
 cleanBasketBtn.addEventListener('click', () => {
     myOrder.length = 0;  
-    localStorage.removeItem('myOrder');
+    localStorage.clear();
     document.querySelector('.order-item-container').innerHTML = 'Your order:';  // удаляем содержимое контейнера из DOM
     orderItemContainer.classList.toggle('active'); 
     updateBasketBtnDisplay(0); 
@@ -231,7 +232,7 @@ orderTotalValue.appendChild(orderTotalValueText);
 
 // функция для создания карточек заказа в корзину
 
-function createBasketOrder(item) {
+export function createBasketOrder(item) {
     const orderItem = document.createElement('div');
     orderItem.classList.add('order-item');
 
@@ -335,12 +336,21 @@ function changeItemBasketStyle(itemBasket) {
     itemBasket.style.filter = 'drop-shadow(0px 0px 3px#ffffff)';
 }
 
+
+// localstorage
 function saveToLocalStorage() {
     localStorage.setItem('myOrder', JSON.stringify(myOrder));
 }
 
-function loadLocalStorage() {
-    JSON.parse(localStorage.getItem('myOrder'));
+function loadFromLocalStorage() {
+    const savedLocal = JSON.parse(localStorage.getItem('myOrder'));
+    if (savedLocal) {
+        myOrder.push(...savedLocal);
+        console.log(myOrder.length);
+        myOrder.forEach(createBasketOrder); 
+        updateBasketBtnDisplay(myOrder.length);
+        updateOrderTotalValue();
+    }
 }
 
-loadLocalStorage();
+loadFromLocalStorage();
