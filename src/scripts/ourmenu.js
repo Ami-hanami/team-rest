@@ -3,9 +3,10 @@ import "../style/ourmenu.css";
 import createHeader, { updateBasketBtnDisplay } from './header.js';
 
 const myMenu = [];
-const myOrder = [];
+export const myOrder = [];
 
-export function basketBtnClick() {
+
+function basketBtnClick() {
     if (myOrder.length > 0) {
         orderItemContainer.classList.toggle('active'); 
     }
@@ -43,7 +44,7 @@ myMenu.push(menu1, menu2, menu3, menu4, menu5, menu6);
 
 // создаем карточки меню 
 
-myMenu.forEach((item, index) => {
+ myMenu.forEach((item, index) => {
     const menuItem = document.createElement('div');
     menuItem.classList.add('menu-item');
     menuItem.setAttribute('id', `item-${index + 1}`);
@@ -129,6 +130,7 @@ myMenu.forEach((item, index) => {
     menuItem.appendChild(itemPriceBlock);
     menuContainer.appendChild(menuItem);
 });
+
 
 function importImg(itemPosition) {
     const itemImgSrc = require(`../icons/item-${itemPosition}.png`);
@@ -325,7 +327,7 @@ export function createBasketOrder(item) {
 mainMenu.appendChild(orderItemContainer);
 
  // функция для подсчета итоговой стоимости всего заказа
-function updateOrderTotalValue() {  
+export function updateOrderTotalValue() {  
     let totalValue = myOrder.reduce((sum, item) => sum + (+item.price.slice(1) * item.value), 0);
     orderTotalValueText.textContent = `Total: $${totalValue.toFixed(2)}`;
 }
