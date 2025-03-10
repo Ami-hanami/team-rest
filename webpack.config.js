@@ -15,8 +15,6 @@ module.exports = {
     clean: true,
     publicPath: '/team-rest/',  // Укажи имя репозитория GitHub в этом пути
   },
-  
-  
   module: {
     rules: [
       {

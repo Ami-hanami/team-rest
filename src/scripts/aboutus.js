@@ -31,6 +31,7 @@ paragraph2.classList.add("mini-p2");
 const maintext = document.createElement("div");
 maintext.classList.add("maintext");
 
+// большой текст
 const moretext = document.createElement("p");
 moretext.classList.add("moretext");
 moretext.textContent =
@@ -51,7 +52,7 @@ video.classList.add("video");
 video.setAttribute("alt", "video");
 video.setAttribute("src", videoplay);
 
-// Кнопка воспроизведения
+
 const playButton = document.createElement("div");
 playButton.classList.add("playbutton");
 

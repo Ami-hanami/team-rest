@@ -26,10 +26,6 @@ button.classList.add("button");
 const burgerContainer = document.createElement("div");
 burgerContainer.classList.add("burger-container");
 
-// const burgerImage = document.createElement("img");
-// burgerImage.src = burgerImageSrc;
-// burgerImage.classList.add("burger-image");
-
 // burgerContainer.appendChild(burgerImage);
 document.body.appendChild(burgerContainer);
 

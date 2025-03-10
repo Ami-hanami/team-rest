@@ -76,13 +76,29 @@ function createHeader(basketBtnClick, updateBasketBtnAmount) {
 
   const memberBtn = document.createElement("button");
   memberBtn.classList.add("member-btn");
-  memberBtn.textContent = "Become a Member";
+  memberBtn.textContent = "Choose a Table";
 
   const burgermenu = document.createElement("button");
   burgermenu.classList.add("burgermenu");
   burgermenu.innerHTML = "&#9776;";
 
   header.appendChild(burgermenu);
+  header.appendChild(ul);
+  header.appendChild(logo);
+  header.appendChild(serviceCont);
+
+  ul.appendChild(li1);
+  li1.appendChild(linkWelcome);
+  ul.appendChild(li2);
+  li2.appendChild(linkMenu);
+  ul.appendChild(li3);
+  li3.appendChild(linkContact);
+  ul.appendChild(li4);
+  li4.appendChild(linkaboutus);
+
+  serviceCont.appendChild(basketBtn);
+  serviceCont.appendChild(search);
+  serviceCont.appendChild(memberBtn);
 
   burgermenu.addEventListener("click", () => {
     ul.classList.toggle("active");
@@ -91,28 +107,52 @@ function createHeader(basketBtnClick, updateBasketBtnAmount) {
     burgermenu.innerHTML = ul.classList.contains("active") ? "&#10006;" : "&#9776;";
   });
 
+  memberBtn.addEventListener("click", () => {
+    const overlay = document.createElement ('div');
+    overlay.classList.add ('overlay')
+
+    const maintable = document.createElement ('div');
+    maintable.classList.add ('maintable');
+
+    const divtable = document.createElement ('div');
+    divtable.classList.add ('divtable');
+
+    const closetable = document.createElement ('button');
+    closetable.textContent = '×'
+    closetable.classList.add ('closetable')
+    closetable.addEventListener ('click', () => {
+      maintable.style.display = 'none'
+      overlay.style.display = 'none'
+    })
+
+    const budgetTable = document.createElement("button");
+    budgetTable.classList.add('choicetable')
+    budgetTable.classList.add("budgetTable");
+    budgetTable.textContent = "budget";
+
+    const middleTable = document.createElement("button");
+    middleTable.classList.add('choicetable');
+    middleTable.classList.add("middleTable");
+    middleTable.textContent = "middle";
+
+    const pontTable = document.createElement("button");
+    pontTable.classList.add('choicetable')
+    pontTable.classList.add("pontTable");
+    pontTable.textContent = "pont";
+
+    overlay.style.display = 'block';
+    maintable.style.display = "block";
+
+    document.body.appendChild (overlay);
+    document.body.appendChild (maintable);
+    maintable.appendChild (divtable);
+    divtable.appendChild(closetable)
+    divtable.appendChild(budgetTable);
+    divtable.appendChild(middleTable);
+    divtable.appendChild(pontTable);
+  });
+
   document.body.prepend(header);
-
-  header.appendChild(ul);
-  header.appendChild(logo);
-  header.appendChild(serviceCont);
-
-  ul.appendChild(li1);
-  li1.appendChild(linkWelcome);
-
-  ul.appendChild(li2);
-  li2.appendChild(linkMenu);
-
-  ul.appendChild(li3);
-  li3.appendChild(linkContact);
-
-  ul.appendChild(li4);
-  li4.appendChild(linkaboutus);
-
-  serviceCont.appendChild(basketBtn);
-  serviceCont.appendChild(search);
-  serviceCont.appendChild(memberBtn);
-
   return header;
 }
 

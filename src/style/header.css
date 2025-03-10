@@ -117,6 +117,85 @@ a {
 }
 
 
+/* table */
+.maintable {
+    position: fixed;
+    top: 52%;
+    left: 50%;
+    width: 20vw;
+    height: 50vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* Находится поверх слоя затемнения */
+}
+
+.divtable {
+    background:linear-gradient(90deg, #0d0d0d, #1a1f2698);
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 126, 6, 0.547);
+    box-shadow: 0px 0px 5px orange;
+}
+.choicetable {
+    color: rgb(255, 252, 252);
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    width: 70%;
+    height: 13%;
+    border-radius: 16px;
+    background-color: #515151fb;
+    transition: all 0.3s;
+}
+.choicetable:hover {
+    transform: scale(1.05);
+    background-color: #8a4d17;
+}
+.closetable {
+    height: 1px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    left:  45%;
+    top: -6%;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: rgb(215, 215, 215);
+    transition: all 0.3s;
+}
+.closetable:hover {
+    color: white;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+    display: none;
+}
+.pontTable {
+    margin: 0 0 20px 0;
+}
+
+
+/* table */
 @media (max-width: 1150px) {
     header {
         padding: 0 30px;
