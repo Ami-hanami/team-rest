@@ -11,7 +11,7 @@ export function updateBasketBtnDisplay(orderNewLength) {
   }
 }
 
-function createHeader(basketBtnClick, updateBasketBtnAmount) {
+function createHeader(basketBtnClick) {
   if (document.querySelector("header")) return document.querySelector("header");
 
   const header = document.createElement("header");

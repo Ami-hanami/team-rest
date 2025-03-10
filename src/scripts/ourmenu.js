@@ -23,8 +23,73 @@ const h2Menu = document.createElement('h2');
 h2Menu.classList.add('ourmenu-title');
 h2Menu.textContent = 'Our Best & Delicious Menu';
 
+// кнопки фильтрации
+const menuFilterBtns = document.createElement('div');
+menuFilterBtns.classList.add('menu-filter-btns');
+
+const allMenuBtn = document.createElement('button');
+allMenuBtn.classList.add('all-menu-btn');
+allMenuBtn.textContent = 'All';
+
+allMenuBtn.addEventListener('click', () => {
+    document.querySelectorAll('.menu-item').forEach(item => item.style.display = 'flex');
+    // document.querySelector('.see-all-btn').style.display = 'block';
+})
+
+const basicMenuBtn = document.createElement('button');
+basicMenuBtn.classList.add('basic-menu-btn');
+basicMenuBtn.textContent = 'Burgers';
+
+basicMenuBtn.addEventListener('click', () => {
+    document.querySelectorAll('.menu-item').forEach(item => chooseMenu('basic-menu', item));
+})
+
+const dessertsBtn = document.createElement('button');
+dessertsBtn.classList.add('desserts-btn');
+dessertsBtn.textContent = 'Desserts';
+
+dessertsBtn.addEventListener('click', () => {
+    document.querySelectorAll('.menu-item').forEach(item => chooseMenu('desserts-menu', item));
+})
+
+const drinksBtn = document.createElement('button');
+drinksBtn.classList.add('drinks-btn');
+drinksBtn.textContent = 'Drinks';
+
+drinksBtn.addEventListener('click', () => {
+    document.querySelectorAll('.menu-item').forEach(item => chooseMenu('drinks-menu', item));
+})
+
+function chooseMenu(menuClass, item) {
+    if (item.classList.contains(menuClass)) {
+        item.style.display = 'flex'; 
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0px)';
+    } else {
+        item.style.display = 'none'; 
+    }
+}
+
+menuFilterBtns.appendChild(allMenuBtn);
+menuFilterBtns.appendChild(basicMenuBtn);
+menuFilterBtns.appendChild(dessertsBtn);
+menuFilterBtns.appendChild(drinksBtn);
+
 const menuContainer = document.createElement('div');
 menuContainer.classList.add('menu-container');
+
+const seeAllBtn= document.createElement('button');
+seeAllBtn.classList.add('see-all-btn');
+seeAllBtn.textContent = 'See All';
+
+seeAllBtn.addEventListener('click', () => {
+    menuContainer.classList.toggle('see-all-cards');
+    if (menuContainer.classList.contains('see-all-cards')) {
+        seeAllBtn.textContent = 'Hide';
+    }
+    else seeAllBtn.textContent = 'See All';
+})
+
 
 function Menu (name, description, price) {
     this.name = name;
@@ -32,108 +97,138 @@ function Menu (name, description, price) {
     this.price = price;
 }
 
-const menu1 = new Menu('Naan Burger', 'Juicy grilled patty, fresh veggies, and sauces in warm naan bread.', '$1.85');
-const menu2 = new Menu('Butter Chicken Taco', 'Tender chicken in creamy butter sauce, wrapped in a soft taco shell.', '$1.15');
-const menu3 = new Menu('Chicken Burger', 'Crispy chicken patty, fresh lettuce, tomato, and savory sauce in a soft bun.', '$2.00');
-const menu4 = new Menu('Cheese Chicken Naan','Juicy chicken, melted cheese, and flavorful spices wrapped in warm, soft naan bread.', '$2.50');
-const menu5 = new Menu('3 Layer Burger', 'Three juicy beef patties, fresh veggies, cheese, and creamy sauce in a hearty bun.', '$4.99');
-const menu6 = new Menu('Sandwich', 'Fresh bread filled with your choice of meats, cheese, veggies, and tasty condiments.', '$2.80');
+const basicMenu = [
+    new Menu('Naan Burger', 'Juicy grilled patty, fresh veggies, and sauces in warm naan bread.', '$1.85'),
+    new Menu('Butter Chicken Taco', 'Tender chicken in creamy butter sauce, wrapped in a soft taco shell.', '$1.15'),
+    new Menu('Chicken Burger', 'Crispy chicken patty, fresh lettuce, tomato, and savory sauce in a soft bun.', '$2.00'),
+    new Menu('Cheese Chicken Naan','Juicy chicken, melted cheese, and flavorful spices wrapped in warm, soft naan bread.', '$2.50'),
+    new Menu('3 Layer Burger', 'Three juicy beef patties, fresh veggies, cheese, and creamy sauce in a hearty bun.', '$4.99'),
+    new Menu('Sandwich', 'Fresh bread filled with your choice of meats, cheese, veggies, and tasty condiments.', '$2.80'),
+]
 
-myMenu.push(menu1, menu2, menu3, menu4, menu5, menu6);
+const dessertsMenu = [
+    new Menu('Oreo Cheescake', 'A rich and creamy cheesecake with a crunchy Oreo cookie crust, topped with Oreo crumbs.', '$0.95'),
+    new Menu('Apple Pie', 'A warm apple pie with a buttery, flaky crust, filled with sweet apples.', '$1.05'),
+    new Menu('Choco Muffin', 'A soft and fluffy muffin packed with rich chocolate chips, perfect for a sweet treat.', '$0.70'),
+    new Menu('Triffle Dessert','A layered dessert with sponge cake, creamy custard, fresh fruit, and whipped cream.', '$1.20'),
+]
 
+const drinksMenu = [
+    new Menu('Iced Caramel Coffee', 'A refreshing iced coffee with rich caramel syrup, topped with whipped cream for a sweet, indulgent treat.', '$1.00'),
+    new Menu('Frappe with nuts', 'A creamy frappe blended with ice, topped with crushed nuts for a crunchy, flavorful twist.', '$0.95'),
+    new Menu('Iced Macchiato', 'A refreshing espresso-based drink with chilled milk and a touch of caramel, served over ice.', '$1.10'),
+    new Menu('Milkshake with juice', 'A creamy milkshake blended with refreshing juice, creating a smooth and fruity treat.', '$0.80'),
+    new Menu('Iced Soda', 'A refreshing, chilled soda served over ice, perfect for a cool and fizzy drink.', '$0.75'),
+    new Menu('Iced Tea', 'A refreshing cold tea served over ice, perfect for a crisp and revitalizing drink.', '$0.60'),
+]
+
+myMenu.push(...basicMenu, ...dessertsMenu, ...drinksMenu);
 
 // создаем карточки меню 
 
- myMenu.forEach((item, index) => {
-    const menuItem = document.createElement('div');
-    menuItem.classList.add('menu-item');
-    menuItem.setAttribute('id', `item-${index + 1}`);
+function createMenu(menuGroup, menuClass) {
+    menuGroup.forEach((item, index) => {
+        const menuItem = document.createElement('div');
+        menuItem.classList.add('menu-item', menuClass);
+        // menuItem.setAttribute('id', `item-${index + 1}`);
 
-    const itemImg = document.createElement('img');
-    itemImg.classList.add('menu-image');
-    itemImg.setAttribute('src', importImg(index + 1));
-    itemImg.setAttribute('height', '200px');
+        const itemImg = document.createElement('img');
+        itemImg.classList.add('menu-image');
+        itemImg.setAttribute('src', importImg(index + 1, menuClass, menuItem));
+        itemImg.setAttribute('height', '200px');
 
-    const itemName = document.createElement('p');
-    itemName.classList.add('menu-name');
-    itemName.textContent = item.name;
+        const itemName = document.createElement('p');
+        itemName.classList.add('menu-name');
+        itemName.textContent = item.name;
 
-    const itemDesc = document.createElement('p');
-    itemDesc.classList.add('menu-description');
-    itemDesc.textContent = item.description;
+        const itemDesc = document.createElement('p');
+        itemDesc.classList.add('menu-description');
+        itemDesc.textContent = item.description;
 
-    const itemPriceBlock = document.createElement('div');
-    itemPriceBlock.classList.add('price-block');
+        const itemPriceBlock = document.createElement('div');
+        itemPriceBlock.classList.add('price-block');
 
-    const itemPrice = document.createElement('p');
-    itemPrice.classList.add('menu-price');
-    itemPrice.textContent = item.price;
+        const itemPrice = document.createElement('p');
+        itemPrice.classList.add('menu-price');
+        itemPrice.textContent = item.price;
 
-    const itemAmountContainer = document.createElement('div');
-    itemAmountContainer.classList.add('price-block__amount-container');
+        const itemAmountContainer = document.createElement('div');
+        itemAmountContainer.classList.add('price-block__amount-container');
 
-    const itemAmount = createItemAmount();
-    const itemAmountDecrease = createItemAmountDecrease(itemAmount);
-    const itemAmountIncrease = createItemAmountIncrease(itemAmount);
+        const itemAmount = createItemAmount();
+        const itemAmountDecrease = createItemAmountDecrease(itemAmount);
+        const itemAmountIncrease = createItemAmountIncrease(itemAmount);
 
-    const itemAmountBtns = document.createElement('div');
-    itemAmountBtns.classList.add('price-block__amount-btns');
+        const itemAmountBtns = document.createElement('div');
+        itemAmountBtns.classList.add('price-block__amount-btns');
 
-    itemAmountBtns.appendChild(itemAmountDecrease);
-    itemAmountBtns.appendChild(itemAmount);
-    itemAmountBtns.appendChild(itemAmountIncrease);
+        itemAmountBtns.appendChild(itemAmountDecrease);
+        itemAmountBtns.appendChild(itemAmount);
+        itemAmountBtns.appendChild(itemAmountIncrease);
 
-    itemAmountContainer.appendChild(itemAmountBtns);
+        itemAmountContainer.appendChild(itemAmountBtns);
 
-    itemAmountDecrease.addEventListener('click', () => {
-        if (itemAmount.value > 0) {
+        itemAmountDecrease.addEventListener('click', () => {
+            if (itemAmount.value > 0) {
             itemAmount.value--;
-        }
+            }
+        });
+
+        itemAmountIncrease.addEventListener('click', () => {
+            itemAmount.value++;
+            if (itemAmount.value > 50) {
+                itemAmount.value = 50;
+                alert('You can order no more than 50 servings!');
+            }
+        });
+
+        const itemBasketBtn = document.createElement('button');
+        itemBasketBtn.classList.add('basket-btn');
+
+        const itemBasket = document.createElement('img');
+        itemBasket.classList.add('basket-icon');
+        itemBasket.setAttribute('src', require('../icons/basket-btn.svg'));
+
+        itemBasketBtn.addEventListener('click', () => {
+            let itemAmountValue = itemAmount.value;
+            if (itemAmountValue > 0) {
+                itemBasketBtn.style.backgroundColor = 'rgba(136, 9, 9, 0.87)';
+                changeItemBasketStyle(itemBasket);
+                addMyOrderItem(item.name, itemAmountValue, item.price);
+                itemAmountValue = 0;
+            }
+            saveToLocalStorage();
+            });
+
+        itemBasketBtn.appendChild(itemBasket);
+        itemAmountContainer.appendChild(itemBasketBtn);
+
+        itemPriceBlock.appendChild(itemPrice);
+        itemPriceBlock.appendChild(itemAmountContainer);
+
+        menuItem.appendChild(itemImg);
+        menuItem.appendChild(itemName);
+        menuItem.appendChild(itemDesc);
+        menuItem.appendChild(itemPriceBlock);
+        menuContainer.appendChild(menuItem);
     });
+}
 
-    itemAmountIncrease.addEventListener('click', () => {
-        itemAmount.value++;
-        if (itemAmount.value > 50) {
-            itemAmount.value = 50;
-            alert('You can order no more than 50 servings!');
-        }
-    });
+createMenu(basicMenu, 'basic-menu');
+createMenu(dessertsMenu, 'desserts-menu');
+createMenu(drinksMenu, 'drinks-menu');
 
-    const itemBasketBtn = document.createElement('button');
-    itemBasketBtn.classList.add('basket-btn');
-
-    const itemBasket = document.createElement('img');
-    itemBasket.classList.add('basket-icon');
-    itemBasket.setAttribute('src', require('../icons/basket-btn.svg'));
-
-    itemBasketBtn.addEventListener('click', () => {
-        let itemAmountValue = itemAmount.value;
-        if (itemAmountValue > 0) {
-            itemBasketBtn.style.backgroundColor = 'rgba(136, 9, 9, 0.87)';
-            changeItemBasketStyle(itemBasket);
-            addMyOrderItem(item.name, itemAmountValue, item.price);
-            itemAmountValue = 0;
-        }
-        saveToLocalStorage();
-        
-    });
-
-    itemBasketBtn.appendChild(itemBasket);
-    itemAmountContainer.appendChild(itemBasketBtn);
-
-    itemPriceBlock.appendChild(itemPrice);
-    itemPriceBlock.appendChild(itemAmountContainer);
-
-    menuItem.appendChild(itemImg);
-    menuItem.appendChild(itemName);
-    menuItem.appendChild(itemDesc);
-    menuItem.appendChild(itemPriceBlock);
-    menuContainer.appendChild(menuItem);
-});
-
-
-function importImg(itemPosition) {
-    const itemImgSrc = require(`../icons/item-${itemPosition}.png`);
+function importImg(itemPosition, menuClass, menuItem) {
+    let itemImgSrc;
+    if (menuClass === 'basic-menu') {
+        itemImgSrc = require(`../icons/basic-menu/item-${itemPosition}.png`);
+    }
+    else if (menuClass === 'desserts-menu'){
+        itemImgSrc = require(`../icons/desserts/item-${itemPosition}.png`);
+    }
+    else if (menuClass === 'drinks-menu') {
+        itemImgSrc = require(`../icons/drinks/item-${itemPosition}.png`);
+    }
     return itemImgSrc;
 }
 
@@ -161,7 +256,9 @@ function createItemAmountIncrease(itemAmount) {
 }
 
 mainMenu.appendChild(h2Menu);
+mainMenu.appendChild(menuFilterBtns);
 mainMenu.appendChild(menuContainer);
+mainMenu.appendChild(seeAllBtn);
 document.body.appendChild(mainMenu);
 
 // создаем корзину и ее содержимое
@@ -224,7 +321,7 @@ cleanBasketBtn.addEventListener('click', () => {
     localStorage.clear();
     document.querySelector('.order-item-container').innerHTML = 'Your order:';  // удаляем содержимое контейнера из DOM
     orderItemContainer.classList.toggle('active'); 
-    updateBasketBtnDisplay(0); 
+    updateBasketBtnDisplay(null); 
 });
 
 const orderTotalValueText = document.createElement('p');
@@ -276,7 +373,13 @@ export function createBasketOrder(item) {
         else {
             orderItem.remove();
             myOrder.splice(myOrder.indexOf(item), 1); // удаляем позицую из массива по индексу
-            updateBasketBtnDisplay(myOrder.length);  // удаляем позиции из корзины в header
+            if (myOrder.length > 0) {
+                updateBasketBtnDisplay(myOrder.length);// удаляем позиции из корзины в header
+            }
+            else {
+                orderItemContainer.classList.toggle('active'); 
+                updateBasketBtnDisplay(null);  
+            }
             saveToLocalStorage();
         }
         updateOrderTotalValue();
@@ -349,8 +452,11 @@ function loadFromLocalStorage() {
     if (savedLocal) {
         myOrder.push(...savedLocal);
         console.log(myOrder.length);
-        myOrder.forEach(createBasketOrder); 
-        updateBasketBtnDisplay(myOrder.length);
+        myOrder.forEach(createBasketOrder);
+        if (myOrder.length > 0) {
+            updateBasketBtnDisplay(myOrder.length);
+        } 
+        else updateBasketBtnDisplay(null);
         updateOrderTotalValue();
     }
 }
