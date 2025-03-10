@@ -78,7 +78,8 @@ menuFilterBtns.appendChild(drinksBtn);
 const menuContainer = document.createElement('div');
 menuContainer.classList.add('menu-container');
 
-const seeAllBtn= document.createElement('button');
+// кнопка для отображения всех позиций
+const seeAllBtn = document.createElement('button');
 seeAllBtn.classList.add('see-all-btn');
 seeAllBtn.textContent = 'See All';
 
@@ -271,7 +272,7 @@ function Order (name, value, price) {
 
 function addMyOrderItem(name, value, price) {
     const orderItem = new Order(name, value, price);
-    const uniqueOrderItem = myOrder.find(orderItem => orderItem.name === name);
+    const uniqueOrderItem = myOrder.find(orderItem => orderItem.name === name); // проверка на дубликаты
     if (uniqueOrderItem) {
         uniqueOrderItem.value = +uniqueOrderItem.value + +value;
         upadetOrderItemValue(uniqueOrderItem, value);
@@ -285,8 +286,10 @@ function addMyOrderItem(name, value, price) {
     console.table(myOrder);
 }
 
+// функция для обновления значений дубликатов
 function upadetOrderItemValue(uniqueOrderItem, value) {
     const orderItems = document.querySelectorAll('.order-item');
+    // console.table(orderItems);
     const index = myOrder.indexOf(uniqueOrderItem);
 
     const orderItemAmount = orderItems[index].querySelector('.order-item__amount');
