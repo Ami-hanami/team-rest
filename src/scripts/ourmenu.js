@@ -241,7 +241,7 @@ function createItemAmount() {
     return itemAmount;
 }
 
-function createItemAmountDecrease(itemAmount) {    
+function createItemAmountDecrease(itemAmount) { 
     const itemAmountDecrease = document.createElement('button');
     itemAmountDecrease.classList.add('price-block__amount-btn-decrease');
     itemAmountDecrease.textContent = '-';
