@@ -1,5 +1,15 @@
-import createHeader from "./header.js";
+import createHeader, { updateBasketBtnDisplay } from "./header.js";
 createHeader();
+
+const myLocalOrder = JSON.parse(localStorage.getItem('myOrder'));
+
+if (myLocalOrder){
+  if (myLocalOrder.length > 0) {
+  updateBasketBtnDisplay(myLocalOrder.length);
+}
+else updateBasketBtnDisplay(null);
+}
+
 
 import "../style/aboutus.css";
 import videoplay from "../icons/video.png";

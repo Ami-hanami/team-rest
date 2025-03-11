@@ -1,6 +1,6 @@
 import "../style/contact.css";
 
-import createHeader from "./header.js";
+import createHeader, { updateBasketBtnDisplay } from "./header.js";
 
 import facebookIcon from "../icons/facebook.svg";
 import twitterIcon from "../icons/twitter.svg";
@@ -11,6 +11,16 @@ import arrowIcon from "../icons/icon-down-left-9055237.png";
 import restaurantImage from "../icons/resti.jpg";
 
 createHeader();
+
+const myLocalOrder = JSON.parse(localStorage.getItem('myOrder'));
+
+if (myLocalOrder) {
+  if (myLocalOrder.length > 0) {
+  updateBasketBtnDisplay(myLocalOrder.length);
+}
+else updateBasketBtnDisplay(null);
+}
+
 
 // проверка, выполняется ли код на странице контактов
 if (window.location.pathname.includes("contact.html")) {
