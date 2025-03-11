@@ -1,7 +1,15 @@
 import '../style/index.css';
-import createHeader from './header.js';
+import createHeader, { updateBasketBtnDisplay } from './header.js';
 
 const header = createHeader();
+const myLocalOrder = JSON.parse(localStorage.getItem('myOrder'));
+
+if (myLocalOrder){
+  if (myLocalOrder.length > 0) {
+  updateBasketBtnDisplay(myLocalOrder.length);
+}
+else updateBasketBtnDisplay(null);
+}
 
 const container = document.createElement("div");
 container.classList.add("container");
