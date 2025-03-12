@@ -306,11 +306,16 @@ function upadetOrderItemValue(uniqueOrderItem, value) {
     }
 }
 
-// создаем корзину 
+// создаем корзину (DOM)
 
 const orderItemContainer = document.createElement('div');  // контейнер для заказа
 orderItemContainer.classList.add('order-item-container');
-orderItemContainer.textContent = 'Your order:';
+
+const orderItemContainerHeader = document.createElement('p');
+orderItemContainerHeader.textContent = 'Your order:';
+
+const orderItemContainerInner = document.createElement('div'); // внутренний контейнер для карточек
+orderItemContainerInner.classList.add('order-item-container__inner');
 
 const orderTotalValue = document.createElement('div');
 orderTotalValue.classList.add('order-total-value');
@@ -322,7 +327,7 @@ cleanBasketBtn.textContent = 'Clean';
 cleanBasketBtn.addEventListener('click', () => {
     myOrder.length = 0;  
     localStorage.clear();
-    document.querySelector('.order-item-container').innerHTML = 'Your order:';  // удаляем содержимое контейнера из DOM
+    document.querySelector('.order-item-container__inner').innerHTML = ''; // удаляем содержимое контейнера из DOM
     orderItemContainer.classList.toggle('active'); 
     updateBasketBtnDisplay(null); 
 });
@@ -423,11 +428,12 @@ export function createBasketOrder(item) {
   
     orderItem.appendChild(orderItemBlock);
     orderItem.appendChild(orderItemTotalContainer);
-    orderItemContainer.appendChild(orderItem);
+    orderItemContainerInner.appendChild(orderItem);
+    orderItemContainer.appendChild(orderItemContainerHeader);
+    orderItemContainer.appendChild(orderItemContainerInner);
     orderItemContainer.appendChild(orderTotalValue);
 
     updateOrderTotalValue();
-
 }
 
 mainMenu.appendChild(orderItemContainer);
