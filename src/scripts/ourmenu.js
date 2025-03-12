@@ -78,7 +78,8 @@ menuFilterBtns.appendChild(drinksBtn);
 const menuContainer = document.createElement('div');
 menuContainer.classList.add('menu-container');
 
-const seeAllBtn= document.createElement('button');
+// кнопка для отображения всех позиций
+const seeAllBtn = document.createElement('button');
 seeAllBtn.classList.add('see-all-btn');
 seeAllBtn.textContent = 'See All';
 
@@ -271,7 +272,7 @@ function Order (name, value, price) {
 
 function addMyOrderItem(name, value, price) {
     const orderItem = new Order(name, value, price);
-    const uniqueOrderItem = myOrder.find(orderItem => orderItem.name === name);
+    const uniqueOrderItem = myOrder.find(orderItem => orderItem.name === name); // проверка на дубликаты
     if (uniqueOrderItem) {
         uniqueOrderItem.value = +uniqueOrderItem.value + +value;
         upadetOrderItemValue(uniqueOrderItem, value);
@@ -285,8 +286,10 @@ function addMyOrderItem(name, value, price) {
     console.table(myOrder);
 }
 
+// функция для обновления значений дубликатов
 function upadetOrderItemValue(uniqueOrderItem, value) {
     const orderItems = document.querySelectorAll('.order-item');
+    // console.table(orderItems);
     const index = myOrder.indexOf(uniqueOrderItem);
 
     const orderItemAmount = orderItems[index].querySelector('.order-item__amount');
@@ -303,11 +306,16 @@ function upadetOrderItemValue(uniqueOrderItem, value) {
     }
 }
 
-// создаем корзину 
+// создаем корзину (DOM)
 
 const orderItemContainer = document.createElement('div');  // контейнер для заказа
 orderItemContainer.classList.add('order-item-container');
-orderItemContainer.textContent = 'Your order:';
+
+const orderItemContainerHeader = document.createElement('p');
+orderItemContainerHeader.textContent = 'Your order:';
+
+const orderItemContainerInner = document.createElement('div'); // внутренний контейнер для карточек
+orderItemContainerInner.classList.add('order-item-container__inner');
 
 const orderTotalValue = document.createElement('div');
 orderTotalValue.classList.add('order-total-value');
@@ -319,7 +327,7 @@ cleanBasketBtn.textContent = 'Clean';
 cleanBasketBtn.addEventListener('click', () => {
     myOrder.length = 0;  
     localStorage.clear();
-    document.querySelector('.order-item-container').innerHTML = 'Your order:';  // удаляем содержимое контейнера из DOM
+    document.querySelector('.order-item-container__inner').innerHTML = ''; // удаляем содержимое контейнера из DOM
     orderItemContainer.classList.toggle('active'); 
     updateBasketBtnDisplay(null); 
 });
@@ -420,11 +428,12 @@ export function createBasketOrder(item) {
   
     orderItem.appendChild(orderItemBlock);
     orderItem.appendChild(orderItemTotalContainer);
-    orderItemContainer.appendChild(orderItem);
+    orderItemContainerInner.appendChild(orderItem);
+    orderItemContainer.appendChild(orderItemContainerHeader);
+    orderItemContainer.appendChild(orderItemContainerInner);
     orderItemContainer.appendChild(orderTotalValue);
 
     updateOrderTotalValue();
-
 }
 
 mainMenu.appendChild(orderItemContainer);
