@@ -464,7 +464,7 @@ function loadFromLocalStorage() {
         myOrder.forEach(createBasketOrder);
         if (myOrder.length > 0) {
             updateBasketBtnDisplay(myOrder.length);
-        } 
+        }
         else updateBasketBtnDisplay(null);
         updateOrderTotalValue();
     }
